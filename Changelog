@@ -1,0 +1,12 @@
+Changelog for Netzarbeiter_CustomerActivation
+
+0.1.2 2008-08-29
+- Use dropdown in Adminhtml interface instead of text field (now overrides Mage_Adminhtml_Block_Customer_Edit_Tab_Account)
+- Translation of label and dropdown values in adminhtml interface
+
+0.1.1 2008-08-28
+- Bugfix for dependency problem in pear package
+
+0.1.0 2008-08-25
+- Initial release
+

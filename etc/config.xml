@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Netzarbeiter_CustomerActivation>
+			<version>0.1.2</version>
+			<depends>
+				<Mage_Customer />
+			</depends>
+		</Netzarbeiter_CustomerActivation>
+	</modules>
+	<global>
+		<models>
+			<customeractivation>
+				<class>Netzarbeiter_CustomerActivation_Model</class>
+			</customeractivation>
+		</models>
+		<blocks>
+			<adminhtml>
+				<rewrite>
+					<!-- overwrite Mage_Adminhtml_Block_Customer_Edit_Tab_Account to add dropdown -->
+					<!-- in case of conflict with other module comment this line out and simply enter 0 or 1 in a textfield -->
+					<customer_edit_tab_account>Netzarbeiter_CustomerActivation_Block_Edit_Tab_Account</customer_edit_tab_account>
+				</rewrite>
+			</adminhtml>
+		</blocks>
+
+		<resources>
+			<customeractivation_setup>
+				<setup>
+					<module>Netzarbeiter_CustomerActivation</module>
+					<class>Mage_Core_Model_Resource_Setup</class>
+				</setup>
+				<connection><use>core_setup</use></connection>
+			</customeractivation_setup>
+
+			<customeractivation_write>
+				<connection><use>core_write</use></connection>
+			</customeractivation_write>
+			<customeractivation_read>
+				<connection><use>core_read</use></connection>
+			</customeractivation_read>
+		</resources>
+	</global>
+
+	<frontend>
+		<events>
+			<customer_login>
+				<observers>
+					<customerActivationLogin>
+						<type>singleton</type>
+						<class>customeractivation/observer</class>
+						<method>customerActivationLoginEvent</method>
+					</customerActivationLogin>
+				</observers>
+			</customer_login>
+		</events>
+        <translate>
+            <modules>
+                <Netzarbeiter_CustomerActivation>
+                     <files>
+                          <default>Netzarbeiter_CustomerActivation.csv</default>
+                     </files>
+                </Netzarbeiter_CustomerActivation>
+            </modules>
+        </translate>
+	</frontend>
+
+	<adminhtml>
+        <translate>
+            <modules>
+                <Netzarbeiter_CustomerActivation>
+                     <files>
+                          <default>Netzarbeiter_CustomerActivation.csv</default>
+                     </files>
+                </Netzarbeiter_CustomerActivation>
+            </modules>
+        </translate>
+	</adminhtml>
+
+</config>
