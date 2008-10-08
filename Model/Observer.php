@@ -30,6 +30,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	public function customerActivationLoginEvent($observer)
 	{
 		// event: customer_login
+		if (Mage::getStoreConfig('customer/customeractivation/disable_ext', Mage::app()->getStore())) return;
+
 		$customer = $observer->getEvent()->getCustomer();
 		if (! $customer->getData('customer_activated')) {
 			Mage::getModel('customer/session')->logout();

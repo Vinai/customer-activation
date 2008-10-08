@@ -32,9 +32,8 @@ Customers > Manage Customers > (select customer) > Account Information > Is acti
 The Extension was designed to be used together with the Netzarbeiter_LoginCatalog extension.
 Netzarbeiter_LoginCatalog only shows products to customers that are logged in.
 
-
-TODO:
-- Make it possible to only use the feature for specific websites/stores (low priority)
+You can disable the Extension on a global or website level using the options found under
+System > Configuration > Customer > Customer Activation
 
 KNOWN BUGS:
 - Works only with email activation for new customers turned ON

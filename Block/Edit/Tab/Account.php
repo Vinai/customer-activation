@@ -37,6 +37,7 @@ class Netzarbeiter_CustomerActivation_Block_Edit_Tab_Account extends Mage_Adminh
     public function initForm()
     {
 		parent::initForm();
+
         $customer = Mage::registry('current_customer');
 		if ($customer->getId()) {
 			$activationAttribute = $customer->getAttribute('customer_activated');
@@ -45,6 +46,8 @@ class Netzarbeiter_CustomerActivation_Block_Edit_Tab_Account extends Mage_Adminh
 
 			// remove default text field element
 			$fieldset->removeField('customer_activated');
+
+			if (Mage::getStoreConfig('customer/customeractivation/disable_ext')) return $this;
 
 			// add new select element
 			$element = $fieldset->addField('customer_activated', 'select', array(
