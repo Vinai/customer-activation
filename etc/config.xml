@@ -65,6 +65,14 @@
         </translate>
 	</frontend>
 
+	<default>
+		<customer>
+			<customeractivation>
+				<disable_ext>0</disable_ext>
+			</customeractivation>
+		</customer>
+	</default>
+
 	<adminhtml>
         <translate>
             <modules>
