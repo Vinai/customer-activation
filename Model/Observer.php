@@ -31,13 +31,24 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	{
 		// event: customer_login
 		if (Mage::getStoreConfig('customer/customeractivation/disable_ext', Mage::app()->getStore())) return;
-
+		
 		$customer = $observer->getEvent()->getCustomer();
+		$session = Mage::getSingleton('customer/session');
+		
 		if (! $customer->getData('customer_activated')) {
-			Mage::getModel('customer/session')->logout();
-            throw new Exception(Mage::helper('customer')->__('This account is not activated.'), self::EXCEPTION_CUSTOMER_NOT_ACTIVATED);
+			
+			$session->logout();
+			
+			if (Mage::app()->getRequest()->getActionName() == 'createpost') {
+				$session->addSuccess(Mage::helper('customer')->__('Please wait for your account to be activated'));
+			} else {
+				//Mage::log("throwing exception");
+				throw new Exception(
+					Mage::helper('customer')->__('This account is not activated.'),
+					self::EXCEPTION_CUSTOMER_NOT_ACTIVATED
+				);
+			}
 		}
-		return $customer;
     }
 }
 
