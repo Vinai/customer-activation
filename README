@@ -29,14 +29,21 @@ until the account has been activated in the adminhtml interface.
 
 Customers > Manage Customers > (select customer) > Account Information > Is activated
 
-The Extension was designed to be used together with the Netzarbeiter_LoginCatalog extension.
+The Extension was designed to be used together with the Netzarbeiter_LoginCatalog extension
 Netzarbeiter_LoginCatalog only shows products to customers that are logged in.
+There also is the Extension Netzarbeiter_GroupsCatalog which may suit your needs better,
+you have to evaluate yourself what is the best solution for your case.
 
 You can disable the Extension on a global or website level using the options found under
 System > Configuration > Customer > Customer Activation
 
+With the latest release this module now also works when customer email confirmation is turned
+off.
+
+Thanks to SeL for the french translation and the bugfix!
+
 KNOWN BUGS:
-- Works only with email activation for new customers turned ON
+- None! :D
 
 If you have ideas for improvements or find bugs, please send them to vinai@netzarbeiter.com,
 with Netzarbeiter_CustomerActivation as part of the subject line.
