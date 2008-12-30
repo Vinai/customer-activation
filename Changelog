@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.1.5 2008-12-30
+- Bugfix in Admintml - create new customer form now works (again, thanks SeL for the bug report)
+
 0.1.4 2008-11-13
 - Bugfix in Adminhtml (thanks to SeL)
 - French Translation (again, thanks to SeL)

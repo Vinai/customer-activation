@@ -41,6 +41,7 @@ With the latest release this module now also works when customer email confirmat
 off.
 
 Thanks to SeL for the french translation and the bugfix!
+Thanks to SeL also for reporting the backend customer creation bug.
 
 KNOWN BUGS:
 - None! :D
