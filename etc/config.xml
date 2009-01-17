@@ -3,9 +3,6 @@
 	<modules>
 		<Netzarbeiter_CustomerActivation>
 			<version>0.1.6</version>
-			<depends>
-				<Mage_Customer />
-			</depends>
 		</Netzarbeiter_CustomerActivation>
 	</modules>
 	<global>

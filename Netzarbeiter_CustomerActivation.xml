@@ -4,6 +4,9 @@
 		<Netzarbeiter_CustomerActivation>
 			<active>true</active>
 			<codePool>community</codePool>
+			<depends>
+				<Mage_Customer />
+			</depends>
 		</Netzarbeiter_CustomerActivation>
 	</modules>
 </config>
