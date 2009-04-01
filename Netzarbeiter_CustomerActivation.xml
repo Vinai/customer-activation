@@ -5,6 +5,7 @@
 			<active>true</active>
 			<codePool>community</codePool>
 			<depends>
+				<Mage_Core />
 				<Mage_Customer />
 			</depends>
 		</Netzarbeiter_CustomerActivation>

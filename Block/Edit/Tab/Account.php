@@ -37,8 +37,7 @@ class Netzarbeiter_CustomerActivation_Block_Edit_Tab_Account extends Mage_Adminh
     public function initForm()
     {
 		parent::initForm();
-
-        $customer = Mage::registry('current_customer');
+		$customer = Mage::registry('current_customer');
         
         // do not check if customer is activated, so the create new customer
         // form in the adminhtml works (Once again thanks to SeL for reporting the bug!)
