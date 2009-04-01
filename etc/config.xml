@@ -2,7 +2,10 @@
 <config>
 	<modules>
 		<Netzarbeiter_CustomerActivation>
-			<version>0.1.6</version>
+			<version>0.1.7</version>
+			<depends>
+				<Mage_Customer />
+			</depends>
 		</Netzarbeiter_CustomerActivation>
 	</modules>
 	<global>
@@ -17,10 +20,12 @@
 					<!-- overwrite Mage_Adminhtml_Block_Customer_Edit_Tab_Account to add dropdown -->
 					<!-- in case of conflict with other module comment this line out and simply enter 0 or 1 in a textfield -->
 					<customer_edit_tab_account>Netzarbeiter_CustomerActivation_Block_Edit_Tab_Account</customer_edit_tab_account>
+
+					<!-- overwrite Mage_Adminhtml_Block_Customer_Grid to add activation to grid -->
+					<customer_grid>Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid</customer_grid>
 				</rewrite>
 			</adminhtml>
 		</blocks>
-
 		<resources>
 			<customeractivation_setup>
 				<setup>
@@ -38,6 +43,18 @@
 			</customeractivation_read>
 		</resources>
 	</global>
+
+	<admin>
+		<routers>
+			<customeractivation>
+				<use>admin</use>
+				<args>
+					<module>Netzarbeiter_CustomerActivation</module>
+					<frontName>customeractivation</frontName>
+				</args>
+			</customeractivation>
+		</routers>
+	</admin>
 
 	<frontend>
 		<events>

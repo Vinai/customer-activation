@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.1.7 209-04-01
+- Added Mass Action Controller and Amdin Customer Activation Status in the grid from PaulE - thanks for the contributon, man!
+
 0.1.6 2009-01-13
 - Declared stable
 
