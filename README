@@ -13,7 +13,7 @@
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
  * package    Netzarbeiter_CustomerActivation
- * copyright  Copyright (c) 2008 Vinai Kopp http://netzarbeiter.com/
+ * copyright  Copyright (c) 2009 Vinai Kopp http://netzarbeiter.com/
  * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  **
 
@@ -42,6 +42,7 @@ off.
 
 Thanks to SeL for the french translation and the bugfix!
 Thanks to SeL also for reporting the backend customer creation bug.
+Thanks to Toon van Veelen for the dutch translation!
 
 KNOWN BUGS:
 - None! :D
