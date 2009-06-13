@@ -9,7 +9,7 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 			$collection -> addAttributeToSelect('customer_activated');
 		}
 
-		parent::setCollection($collection);
+		return parent::setCollection($collection);
 	}
 
 	public function addColumn($name, $params)
@@ -33,7 +33,7 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 			}
 		}
 
-		parent::addColumn($name, $params);
+		return parent::addColumn($name, $params);
 	}
 
 	protected function _prepareMassaction()
@@ -58,5 +58,7 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 				))
 			));
 		}
+		
+		return $this;
 	}
 }

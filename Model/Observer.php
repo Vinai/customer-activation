@@ -20,6 +20,9 @@
  */
 class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abstract
 {
+	/**
+	 * Some random number ;)
+	 */
 	const EXCEPTION_CUSTOMER_NOT_ACTIVATED = 996;
 
 	const XML_PATH_MODULE_DISABLED = 'customer/customeractivation/disable_ext';
@@ -83,9 +86,11 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 		
 		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore($customer->getStoreId()))) return;
 
+		try {
+
 		if (Mage::app()->getStore()->isAdmin())
 		{
-			if (! $customer->getOrigData('customer_activated') && $customer->getCstomerActivated())
+			if (! $customer->getOrigData('customer_activated') && $customer->getCustomerActivated())
 			{
 				Mage::helper('customeractivation')->sendCustomerNotificationEmail($customer);
 			}
@@ -96,6 +101,12 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 			{
 				Mage::helper('customeractivation')->sendAdminNotificationEmail($customer);
 			}
+			$customer->setCustomerActivationNewAccount(false);
+		}
+
+		} catch (Exception $e) {
+			//Mage::log($e->getMessage());
+			Mage::throwException($e->getMessage());
 		}
 	}
 }

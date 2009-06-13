@@ -1,4 +1,4 @@
-<!--@subject Neue Anmeldung im Shop {{var store.getName()}} @-->
+<!--@subject Neue Kundenregistrierung bei {{var store.getName()}} @-->
 
 <style type="text/css">
 body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
@@ -12,13 +12,13 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                     <tr>
                         <td valign="top">
                             <p>
-								Neue Kundenregistrierung im Store {{var store.getName()}}.<br />
-								Name: {{var customer.getName()<br />
+								Neue Kundenregistrierung bei {{var store.getName()}}.<br />
+								Name: {{var customer.getName()}}<br />
 								Email: {{var customer.getEmail()}}
 							</p>
 
 							<p>
-								Um den Kunden frei zu schalten, klicken sie einfach auf <a href="{{store url="admin/customer/edit"}}/id/{{var customer.getId()}}">Kunden &gt; Kunden verwalten &gt; {{var customer.getName()}} &gt; Benutzerkonto Informationen</a> und
+								Um den Kunden frei zu schalten, gehen sie im <a href="{{store url="adminhtml/customer"}}">Admin Interface</a> auf Kunden &gt; Kunden verwalten &gt; {{var customer.getName()}} &gt; Benutzerkonto Informationen und
 								aktivieren sie das Konto.
 							</p>
 

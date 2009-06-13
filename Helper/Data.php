@@ -15,7 +15,7 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	 */
 	public function sendAdminNotificationEmail(Mage_Customer_Model_Customer $customer)
 	{
-		$to = $this->_getEmails(self::XML_PATH_EMAIL_ADMIN_NOTIFICATION);
+		$to = $this->_getEmails(self::XML_PATH_EMAIL_ADMIN_NOTIFICATION, $customer->getStoreId());
 		return $this->_sendNotificationEmail($to, $customer, self::XML_PATH_EMAIL_ADMIN_NOTIFICATION_TEMPLATE);
 	}
 
@@ -57,9 +57,9 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 		$sendTo = array();
 		foreach ($to as $recipient)
 		{
-			if (is_array($recepient))
+			if (is_array($recipient))
 			{
-				$sendTo[] = $recepient;
+				$sendTo[] = $recipient;
 			}
 			else
 			{
@@ -69,12 +69,12 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 				);
 			}
 		}
-
+		
 		foreach ($sendTo as $recipient) {
 			$mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>$customer->getStoreId()))
 			->sendTransactional(
 				$template,
-				Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $customer->getStoreId()),
+				Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_REGISTER_EMAIL_IDENTITY, $customer->getStoreId()),
 				$recipient['email'],
 				$recipient['name'],
 				array(
@@ -90,9 +90,9 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	}
 
 
-	protected function _getEmails($configPath)
+	protected function _getEmails($configPath, $storeId = null)
 	{
-		$data = Mage::getStoreConfig($configPath, $this->getStoreId());
+		$data = Mage::getStoreConfig($configPath, $storeId);
 		if (!empty($data)) {
 			return explode(',', $data);
 		}
