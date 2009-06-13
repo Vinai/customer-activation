@@ -37,6 +37,9 @@ you have to evaluate yourself what is the best solution for your case.
 You can disable the Extension on a global or website level using the options found under
 System > Configuration > Customer > Customer Activation
 
+You can also select email notifications for the admin (when a new customer registers) and
+for the customer (wehn her account has been activated).
+
 With the latest release this module now also works when customer email confirmation is turned
 off.
 
