@@ -38,6 +38,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	{
 		// event: customer_login
 		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore())) return;
+
+		if ($this->_isApiRequest()) return;
 		
 		$customer = $observer->getEvent()->getCustomer();
 		$session = Mage::getSingleton('customer/session');
@@ -108,6 +110,16 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 			//Mage::log($e->getMessage());
 			Mage::throwException($e->getMessage());
 		}
+	}
+
+	/**
+	 * Return true if the reqest is made via the api
+	 *
+	 * @return boolean
+	 */
+	protected function _isApiRequest()
+	{
+		return Mage::app()->getRequest()->getModuleName() === 'api';
 	}
 }
 
