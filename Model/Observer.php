@@ -22,15 +22,19 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 {
 	const EXCEPTION_CUSTOMER_NOT_ACTIVATED = 996;
 
+	const XML_PATH_MODULE_DISABLED = 'customer/customeractivation/disable_ext';
+
 	/**
 	 * Fired on customer_login event
 	 * Check if the customer has been activated (via adminhtml)
 	 * If not, through login error
+	 *
+	 * @param Varien_Event_Observer $observer
 	 */
 	public function customerActivationLoginEvent($observer)
 	{
 		// event: customer_login
-		if (Mage::getStoreConfig('customer/customeractivation/disable_ext', Mage::app()->getStore())) return;
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore())) return;
 		
 		$customer = $observer->getEvent()->getCustomer();
 		$session = Mage::getSingleton('customer/session');
@@ -50,5 +54,49 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 			}
 		}
     }
+
+	/**
+	 * Flag new accounts as such
+	 *
+	 * @param Varien_Event_Observer $observer
+	 */
+	public function customerSaveBefore($observer)
+	{
+		$customer = $observer->getEvent()->getCustomer();
+
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore($customer->getStoreId()))) return;
+
+		if (! $customer->getId())
+		{
+			$customer->setCustomerActivationNewAccount(true);
+		}
+	}
+
+	/**
+	 * Send out emails
+	 *
+	 * @param Varien_Event_Observer $observer
+	 */
+	public function customerSaveAfter($observer)
+	{
+		$customer = $observer->getEvent()->getCustomer();
+		
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore($customer->getStoreId()))) return;
+
+		if (Mage::app()->getStore()->isAdmin())
+		{
+			if (! $customer->getOrigData('customer_activated') && $customer->getCstomerActivated())
+			{
+				Mage::helper('customeractivation')->sendCustomerNotificationEmail($customer);
+			}
+		}
+		else
+		{
+			if ($customer->getCustomerActivationNewAccount())
+			{
+				Mage::helper('customeractivation')->sendAdminNotificationEmail($customer);
+			}
+		}
+	}
 }
 

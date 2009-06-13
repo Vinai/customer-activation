@@ -23,22 +23,66 @@
     <sections>
         <customer translate="label" module="customer">
             <groups>
-                <customeractivation translate="label">
+                <customeractivation translate="label" module="customeractivation">
                     <label>Customer Activation</label>
                     <sort_order>768</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
-                        <disable_ext translate="label">
+                        <disable_ext translate="label" module="customeractivation">
                             <label>Disable CustomerActivation</label>
                             <frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>1</sort_order>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </disable_ext>
+                        <alert_admin translate="label" module="customeractivation">
+                            <label>Notify Admin on Customer Registration</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </alert_admin>
+						<admin_email translate="label" module="customeractivation">
+							<label>Admin Email Address</label>
+							<fontend_type>text</fontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</admin_email>
+                        <registration_admin_template translate="label" module="customeractivation">
+                            <label>Admin Notification Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </registration_admin_template>
+                        <alert_customer translate="label" module="customeractivation">
+                            <label>Notify Customer of Account Activation</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </alert_customer>
+                        <activation_template translate="label" module="customeractivation">
+                            <label>Customer Notification Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </activation_template>
                     </fields>
                 </customeractivation>
             </groups>

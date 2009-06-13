@@ -14,6 +14,11 @@
 				<class>Netzarbeiter_CustomerActivation_Model</class>
 			</customeractivation>
 		</models>
+		<helpers>
+			<customeractivation>
+				<class>Netzarbeiter_CustomerActivation_Helper</class>
+			</customeractivation>
+		</helpers>
 		<blocks>
 			<adminhtml>
 				<rewrite>
@@ -42,6 +47,31 @@
 				<connection><use>core_read</use></connection>
 			</customeractivation_read>
 		</resources>
+		<template>
+			<email>
+				<customer_customeractivation_registration_admin_template translate="label" module="customeractivation">
+					<label>Customer Registration Admin Notification</label>
+					<file>netzarbeiter/customeractivation/customer_registration_admin.html</file>
+					<type>html</type>
+				</customer_customeractivation_registration_admin_template>
+				<customer_customeractivation_activation_template translate="label" module="customeractivation">
+					<label>Customer Activation Notification</label>
+					<file>netzarbeiter/customeractivation/customer_activation.html</file>
+					<type>html</type>
+				</customer_customeractivation_activation_template>
+			</email>
+		</template>
+		<events>
+			<customer_save_after>
+				<observers>
+					<customeractivation>
+						<type>singleton</type>
+						<class>customeractivation/observer</class>
+						<method>customerSaveAfter</method>
+					</customeractivation>
+				</observers>
+			</customer_save_after>
+		</events>
 	</global>
 
 	<admin>
@@ -60,13 +90,22 @@
 		<events>
 			<customer_login>
 				<observers>
-					<customerActivationLogin>
+					<customeractivation>
 						<type>singleton</type>
 						<class>customeractivation/observer</class>
 						<method>customerActivationLoginEvent</method>
-					</customerActivationLogin>
+					</customeractivation>
 				</observers>
 			</customer_login>
+			<customer_save_before>
+				<observers>
+					<customeractivation>
+						<type>singleton</type>
+						<class>customeractivation/observer</class>
+						<method>customerSaveBefore</method>
+					</customeractivation>
+				</observers>
+			</customer_save_before>
 		</events>
         <translate>
             <modules>
@@ -83,6 +122,11 @@
 		<customer>
 			<customeractivation>
 				<disable_ext>0</disable_ext>
+				<alert_admin>1</alert_admin>
+				<admin_email></admin_email>
+				<registration_admin_template>customer_customeractivation_registration_admin_template</registration_admin_template>
+				<alert_customer>0</alert_customer>
+				<activation_template>customer_customeractivation_activation_template</activation_template>
 			</customeractivation>
 		</customer>
 	</default>
