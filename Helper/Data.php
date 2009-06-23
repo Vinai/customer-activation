@@ -78,18 +78,18 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 				$recipient['email'],
 				$recipient['name'],
 				array(
-						'customer'	=> $customer,
-						'store' => Mage::app()->getStore($customer->getStoreId()),
+					'customer'	=> $customer,
+					'store' => Mage::app()->getStore($customer->getStoreId()),
 				)
 			);
 		}
-
+		
 		$translate->setTranslateInline(true);
 
 		return $this;
 	}
 
-
+	
 	protected function _getEmails($configPath, $storeId = null)
 	{
 		$data = Mage::getStoreConfig($configPath, $storeId);

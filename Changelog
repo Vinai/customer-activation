@@ -4,7 +4,7 @@ Changelog for Netzarbeiter_CustomerActivation
 - Let through API calls unchecked
 
 0.2.0 2009-06-13
-- Added new Featur: send out notification emails to admin and customer
+- Added new Feature: send out notification emails to admin and customer
 
 0.1.9 2009-06-13
 - Added greek translation - thanks to Erik Hoeksma

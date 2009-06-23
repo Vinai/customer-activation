@@ -53,6 +53,9 @@ Thanks to Finn Snaterse for the inclusion in the Adminhtml Grid!
 KNOWN BUGS:
 - None! :D
 
+TODO:
+- Add customer activation as a Resource under Roles
+
 If you have ideas for improvements or find bugs, please send them to vinai@netzarbeiter.com,
 with Netzarbeiter_CustomerActivation as part of the subject line.
 
