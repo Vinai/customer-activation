@@ -12,4 +12,5 @@
 "Admin Notification Email Template","Admin Benachrichtigung Email Template"
 "Notify Customer of Account Activation","Kunde über Kontoaktivierung benachrichtigen"
 "Customer Notification Email Template","Kunde Benachrichtigung Email Template"
-
+"Always enable in admin interface","Im Admin Backend immer aktiv"
+"If you want to activate accounts created via the admin interface","Zum Aktivieren von Kontos die im Admin Interface erstellt wurden"

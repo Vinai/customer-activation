@@ -1,5 +1,11 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.2.3 2009-08-10
+- Make customer notification email template selectable on a store view configuraton level
+
+0.2.2 2009-07-18
+- Added new config option to keep module active in admin customer interface, even if it is disabled otherwise
+
 0.2.1 2009-06-13
 - Let through API calls unchecked
 

@@ -49,11 +49,17 @@ class Netzarbeiter_CustomerActivation_Block_Edit_Tab_Account extends Mage_Adminh
 
 		// remove default text field element
 		$fieldset->removeField('customer_activated');
-			
-		/**
+
+		/*
 		 * Thanks to SeL for this bugfix!
 		 */
-		if (Mage::getStoreConfig('customer/customeractivation/disable_ext', $customer->getStoreId())) return $this;
+		if (Mage::getStoreConfig('customer/customeractivation/disable_ext', $customer->getStoreId()))
+		{
+			if (! Mage::getStoreConfig('customer/customeractivation/always_active_in_admin'))
+			{
+				return $this;
+			}
+		}
 
 		// add new select element
 		$element = $fieldset->addField('customer_activated', 'select', array(

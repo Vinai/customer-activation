@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Netzarbeiter_CustomerActivation>
-			<version>0.2.1</version>
+			<version>0.2.3</version>
 			<depends>
 				<Mage_Customer />
 			</depends>
@@ -122,6 +122,7 @@
 		<customer>
 			<customeractivation>
 				<disable_ext>0</disable_ext>
+				<always_active_in_admin>1</always_active_in_admin>
 				<alert_admin>1</alert_admin>
 				<admin_email></admin_email>
 				<registration_admin_template>customer_customeractivation_registration_admin_template</registration_admin_template>
