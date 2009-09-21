@@ -49,12 +49,13 @@ Thanks to Toon van Veelen for the dutch translation!
 Thanks to Erik Hoeksma for the Greek translation!
 Thanks to PaulE for the integration in the admin grid for mass activation of customers!
 Thanks to Finn Snaterse for the inclusion in the Adminhtml Grid!
+Thanks to Aaron Kondziela for reminding me to clean up the admin customer edit page stuff!
 
 KNOWN BUGS:
 - None! :D
 
 TODO:
-- Add customer activation as a Resource under Roles
+- Allow to set a static page to redirect to after the customer has signed up for an account.
 
 If you have ideas for improvements or find bugs, please send them to vinai@netzarbeiter.com,
 with Netzarbeiter_CustomerActivation as part of the subject line.

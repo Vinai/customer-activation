@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.2.4 2009-09-21
+- Get rid of customer edit block override by setting the correct attribute source model
+
 0.2.3 2009-08-10
 - Make customer notification email template selectable on a store view configuraton level
 
