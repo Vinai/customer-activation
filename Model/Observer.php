@@ -20,11 +20,6 @@
  */
 class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abstract
 {
-	/**
-	 * Some random number ;)
-	 */
-	const EXCEPTION_CUSTOMER_NOT_ACTIVATED = 996;
-
 	const XML_PATH_MODULE_DISABLED = 'customer/customeractivation/disable_ext';
 
 	/**
@@ -36,7 +31,6 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	 */
 	public function customerActivationLoginEvent($observer)
 	{
-		// event: customer_login
 		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore())) return;
 
 		if ($this->_isApiRequest()) return;
@@ -51,11 +45,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 			if (Mage::app()->getRequest()->getActionName() == 'createpost') {
 				$session->addSuccess(Mage::helper('customer')->__('Please wait for your account to be activated'));
 			} else {
-				//Mage::log("throwing exception");
-				throw new Exception(
-					Mage::helper('customer')->__('This account is not activated.'),
-					self::EXCEPTION_CUSTOMER_NOT_ACTIVATED
-				);
+				Mage::throwException(Mage::helper('customer')->__('This account is not activated.'));
 			}
 		}
     }
@@ -90,24 +80,23 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 
 		try {
 
-		if (Mage::app()->getStore()->isAdmin())
-		{
-			if (! $customer->getOrigData('customer_activated') && $customer->getCustomerActivated())
+			if (Mage::app()->getStore()->isAdmin())
 			{
-				Mage::helper('customeractivation')->sendCustomerNotificationEmail($customer);
+				if (! $customer->getOrigData('customer_activated') && $customer->getCustomerActivated())
+				{
+					Mage::helper('customeractivation')->sendCustomerNotificationEmail($customer);
+				}
 			}
-		}
-		else
-		{
-			if ($customer->getCustomerActivationNewAccount())
+			else
 			{
-				Mage::helper('customeractivation')->sendAdminNotificationEmail($customer);
+				if ($customer->getCustomerActivationNewAccount())
+				{
+					Mage::helper('customeractivation')->sendAdminNotificationEmail($customer);
+				}
+				$customer->setCustomerActivationNewAccount(false);
 			}
-			$customer->setCustomerActivationNewAccount(false);
-		}
 
 		} catch (Exception $e) {
-			//Mage::log($e->getMessage());
 			Mage::throwException($e->getMessage());
 		}
 	}
