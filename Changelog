@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.2.6 2010-03-15
+- Add it_IT locale
+
 0.2.5 2010-03-11
 - Fix account not activated message for magento 1.4
 

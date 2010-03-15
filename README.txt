@@ -50,6 +50,8 @@ Thanks to Erik Hoeksma for the Greek translation!
 Thanks to PaulE for the integration in the admin grid for mass activation of customers!
 Thanks to Finn Snaterse for the inclusion in the Adminhtml Grid!
 Thanks to Aaron Kondziela for reminding me to clean up the admin customer edit page stuff!
+Thanks to Chiara Piatti for the italian translation!
+
 
 KNOWN BUGS:
 - None! :D
