@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.2.7 2010-03-22
+- Add option to enable mass activation updates when module is disabled
+
 0.2.6 2010-03-15
 - Add it_IT locale
 

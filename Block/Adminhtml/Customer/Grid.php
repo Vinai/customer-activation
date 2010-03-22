@@ -4,9 +4,9 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 {
 	public function setCollection($collection)
 	{
-		if(!Mage::getStoreConfig('customer/customeractivation/disable_ext', Mage::app() -> getStore() -> getStoreId()))
+		if ($this->_isActive())
 		{
-			$collection -> addAttributeToSelect('customer_activated');
+			$collection->addAttributeToSelect('customer_activated');
 		}
 
 		return parent::setCollection($collection);
@@ -14,12 +14,12 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 
 	public function addColumn($name, $params)
 	{
-		if(!Mage::getStoreConfig('customer/customeractivation/disable_ext', Mage::app() -> getStore() -> getStoreId()))
+		if ($this->_isActive())
 		{
-			if($name == 'action')
+			if ($name == 'action')
 			{
 				self::addColumn('customer_activated', array(
-					'header'    => Mage::helper('customer') -> __('Customer Activated'),
+					'header'    => Mage::helper('customer')->__('Customer Activated'),
 					'align'     => 'center',
 					'width'     => '80px',
 					'type'      => 'options',
@@ -40,7 +40,7 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 	{
 		parent::_prepareMassaction();
 
-		if(!Mage::getStoreConfig('customer/customeractivation/disable_ext', Mage::app() -> getStore() -> getStoreId()))
+		if ($this->_isActive())
 		{
 			$this -> getMassactionBlock() -> addItem('customer_activated', array(
 				'label'    => Mage::helper('customer') -> __('Customer Activated'),
@@ -58,7 +58,18 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 				))
 			));
 		}
-		
+
 		return $this;
+	}
+
+	protected function _isActive()
+	{
+		if (Mage::getStoreConfig('customer/customeractivation/disable_ext') &&
+			! Mage::getStoreConfig('customer/customeractivation/always_active_in_admin')
+		)
+		{
+			return false;
+		}
+		return true;
 	}
 }
