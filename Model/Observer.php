@@ -74,7 +74,6 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	 */
 	public function customerSaveAfter($observer)
 	{
-		Mage::log(__METHOD__);
 		$customer = $observer->getEvent()->getCustomer();
 		
 		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore($customer->getStoreId()))) return;
@@ -83,7 +82,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 
 			if (Mage::app()->getStore()->isAdmin())
 			{
-				Mage::log('admin area');
+				//Mage::log('admin area');
 				if (! $customer->getOrigData('customer_activated') && $customer->getCustomerActivated())
 				{
 					Mage::log('send email');
@@ -96,7 +95,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 				{
 					Mage::helper('customeractivation')->sendAdminNotificationEmail($customer);
 				}
-					Mage::log('send frontend email');
+				//Mage::log('send frontend email');
 				$customer->setCustomerActivationNewAccount(false);
 			}
 
