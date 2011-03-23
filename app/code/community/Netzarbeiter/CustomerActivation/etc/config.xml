@@ -39,6 +39,9 @@
 			</customeractivation>
 		</helpers>
 		<blocks>
+			<customeractivation>
+				<class>Netzarbeiter_CustomerActivation_Block</class>
+			</customeractivation>
 			<adminhtml>
 				<rewrite>
 					<!-- overwrite Mage_Adminhtml_Block_Customer_Grid to add activation to grid -->
