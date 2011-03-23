@@ -1,5 +1,17 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.3.0 2011-03-22
+- Fix session logout handling for Magento 1.5 compatibility
+- Added licence header comments to all files
+
+0.2.9 2010-12-20
+- Add japanese locale (thanks to Junya Sano for the translation!)
+
+0.2.8 2010-12-20
+- Drop Magento 1.3 Support
+- Add customer_activated attribute to 1.4.2 (CE) / 1.9 (EE) customer_form_attribute table
+- Add renderer for column to display null values as "not activated"
+
 0.2.7 2010-03-22
 - Add option to enable mass activation updates when module is disabled
 
