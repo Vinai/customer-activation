@@ -43,7 +43,6 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	 */
 	protected function _sendNotificationEmail($to, $customer, $templateConfigPath)
 	{
-		Mage::log(__METHOD__);
 		if (! $to) return;
 
 		$translate = Mage::getSingleton('core/translate');
@@ -72,7 +71,6 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 		}
 		
 		foreach ($sendTo as $recipient) {
-			Mage::log('sending out email to ' . $recipient['email']);
 			$mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>$customer->getStoreId()))
 			->sendTransactional(
 				$template,
@@ -80,7 +78,7 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 				$recipient['email'],
 				$recipient['name'],
 				array(
-					'customer'	=> $customer,
+					'customer' => $customer,
 					'store' => Mage::app()->getStore($customer->getStoreId()),
 				)
 			);
