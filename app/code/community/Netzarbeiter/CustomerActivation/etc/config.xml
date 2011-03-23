@@ -111,7 +111,7 @@
 					<customeractivation>
 						<type>singleton</type>
 						<class>customeractivation/observer</class>
-						<method>customerActivationLoginEvent</method>
+						<method>customerLogin</method>
 					</customeractivation>
 				</observers>
 			</customer_login>
