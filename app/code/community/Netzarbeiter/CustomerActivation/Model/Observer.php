@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Magento
  *
@@ -13,11 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
- * @category   Mage
- * @package    Netzarbeiter_CustomerActivation
- * @copyright  Copyright (c) 2008 Vinai Kopp http://netzarbeiter.com/
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * package    Netzarbeiter_CustomerActivation
+ * copyright  Copyright (c) 2011 Vinai Kopp http://netzarbeiter.com/
+ * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abstract
 {
 	const XML_PATH_MODULE_DISABLED = 'customer/customeractivation/disable_ext';
@@ -29,26 +28,38 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	 *
 	 * @param Varien_Event_Observer $observer
 	 */
-	public function customerActivationLoginEvent($observer)
+	public function customerLogin($observer)
 	{
-		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore())) return;
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, Mage::app()->getStore()))
+		{
+			return;
+		}
 
-		if ($this->_isApiRequest()) return;
-		
+		if ($this->_isApiRequest())
+		{
+			return;
+		}
+
 		$customer = $observer->getEvent()->getCustomer();
 		$session = Mage::getSingleton('customer/session');
-		
-		if (! $customer->getData('customer_activated')) {
+
+		if (!$customer->getData('customer_activated'))
+		{
+			/*
+			 * Fake the old logout() method without deleting the session and all messages XD
+			 */
+			$session->setCustomer(Mage::getModel('customer/customer'))->setId(null);
 			
-			$session->logout();
-			
-			if (Mage::app()->getRequest()->getActionName() == 'createpost') {
+			if (Mage::app()->getRequest()->getActionName() == 'createpost')
+			{
 				$session->addSuccess(Mage::helper('customer')->__('Please wait for your account to be activated'));
-			} else {
+			}
+			else
+			{
 				Mage::throwException(Mage::helper('customer')->__('This account is not activated.'));
 			}
 		}
-    }
+	}
 
 	/**
 	 * Flag new accounts as such
@@ -59,9 +70,12 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	{
 		$customer = $observer->getEvent()->getCustomer();
 
-		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore($customer->getStoreId()))) return;
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, Mage::app()->getStore($customer->getStoreId())))
+		{
+			return;
+		}
 
-		if (! $customer->getId())
+		if (!$customer->getId())
 		{
 			$customer->setCustomerActivationNewAccount(true);
 		}
@@ -75,17 +89,18 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	public function customerSaveAfter($observer)
 	{
 		$customer = $observer->getEvent()->getCustomer();
-		
-		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED , Mage::app()->getStore($customer->getStoreId()))) return;
 
-		try {
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, Mage::app()->getStore($customer->getStoreId())))
+		{
+			return;
+		}
 
+		try
+		{
 			if (Mage::app()->getStore()->isAdmin())
 			{
-				//Mage::log('admin area');
-				if (! $customer->getOrigData('customer_activated') && $customer->getCustomerActivated())
+				if (!$customer->getOrigData('customer_activated') && $customer->getCustomerActivated())
 				{
-					Mage::log('send email');
 					Mage::helper('customeractivation')->sendCustomerNotificationEmail($customer);
 				}
 			}
@@ -95,11 +110,11 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 				{
 					Mage::helper('customeractivation')->sendAdminNotificationEmail($customer);
 				}
-				//Mage::log('send frontend email');
 				$customer->setCustomerActivationNewAccount(false);
 			}
-
-		} catch (Exception $e) {
+		}
+		catch (Exception $e)
+		{
 			Mage::throwException($e->getMessage());
 		}
 	}
@@ -113,5 +128,5 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	{
 		return Mage::app()->getRequest()->getModuleName() === 'api';
 	}
-}
 
+}
