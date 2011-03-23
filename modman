@@ -1,0 +1,23 @@
+#
+# Netzarbeiter_CustomerActivation modman file
+#
+
+app/etc/modules/Netzarbeiter_CustomerActivation.xml app/etc/modules/Netzarbeiter_CustomerActivation.xml
+
+app/code/community/Netzarbeiter/CustomerActivation app/code/community/Netzarbeiter/CustomerActivation
+
+app/locale/de_DE/Netzarbeiter_CustomerActivation.csv app/locale/de_DE/Netzarbeiter_CustomerActivation.csv
+app/locale/de_DE/template/email/netzarbeiter/customeractivation app/locale/de_DE/template/email/netzarbeiter/customeractivation
+
+app/locale/el_GR/Netzarbeiter_CustomerActivation.csv app/locale/el_GR/Netzarbeiter_CustomerActivation.csv
+
+app/locale/en_US/Netzarbeiter_CustomerActivation.csv app/locale/en_US/Netzarbeiter_CustomerActivation.csv
+app/locale/en_US/template/email/netzarbeiter/customeractivation app/locale/en_US/template/email/netzarbeiter/customeractivation
+
+app/locale/fr_FR/Netzarbeiter_CustomerActivation.csv app/locale/fr_FR/Netzarbeiter_CustomerActivation.csv
+
+app/locale/it_IT/Netzarbeiter_CustomerActivation.csv app/locale/it_IT/Netzarbeiter_CustomerActivation.csv
+app/locale/it_IT/template/email/netzarbeiter/customeractivation app/locale/it_IT/template/email/netzarbeiter/customeractivation
+
+app/locale/nl_NL/Netzarbeiter_CustomerActivation.csv app/locale/nl_NL/Netzarbeiter_CustomerActivation.csv
+
