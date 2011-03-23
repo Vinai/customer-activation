@@ -55,15 +55,7 @@
 					<module>Netzarbeiter_CustomerActivation</module>
 					<class>Mage_Customer_Model_Entity_Setup</class>
 				</setup>
-				<connection><use>core_setup</use></connection>
 			</customeractivation_setup>
-
-			<customeractivation_write>
-				<connection><use>core_write</use></connection>
-			</customeractivation_write>
-			<customeractivation_read>
-				<connection><use>core_read</use></connection>
-			</customeractivation_read>
 		</resources>
 		<template>
 			<email>
