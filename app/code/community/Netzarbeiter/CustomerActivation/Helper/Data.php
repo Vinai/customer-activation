@@ -53,9 +53,10 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	/**
 	 * Send transactional email
 	 *
-	 * @param Mage_Customer_Model_Customer|string $to
+	 * @param array|string $to
+	 * @param Mage_Customer_Model_Customer $customer
 	 * @param string $templateConfigPath
-	 * @return Mage_Sales_Model_Customert
+	 * @return Netzarbeiter_CustomerActivation_Helper_Data
 	 */
 	protected function _sendNotificationEmail($to, $customer, $templateConfigPath)
 	{
@@ -95,6 +96,8 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 				$recipient['name'],
 				array(
 					'customer' => $customer,
+					'shipping' => $customer->getPrimaryShippingAddress(),
+					'billing' => $customer->getPrimaryBillingAddress(),
 					'store' => Mage::app()->getStore($customer->getStoreId()),
 				)
 			);
@@ -105,7 +108,6 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 		return $this;
 	}
 
-	
 	protected function _getEmails($configPath, $storeId = null)
 	{
 		$data = Mage::getStoreConfig($configPath, $storeId);

@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.3.1 2011-03-23
+- Added shipping and billing address models as email variables
+
 0.3.0 2011-03-22
 - Fix session logout handling for Magento 1.5 compatibility
 - Added licence header comments to all files
