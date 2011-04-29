@@ -22,6 +22,8 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	const XML_PATH_EMAIL_ADMIN_NOTIFICATION = 'customer/customeractivation/admin_email';
 	const XML_PATH_EMAIL_ADMIN_NOTIFICATION_TEMPLATE = 'customer/customeractivation/registration_admin_template';
 	const XML_PATH_EMAIL_CUSTOMER_NOTIFICATION_TEMPLATE = 'customer/customeractivation/activation_template';
+	const XML_PATH_ALERT_CUSTOMER = 'customer/customeractivation/alert_customer';
+	const XML_PATH_ALERT_ADMIN = 'customer/customeractivation/alert_admin';
 
 	/**
 	 * Send Admin a notification whenever a new customer account is registered
@@ -31,8 +33,12 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	 */
 	public function sendAdminNotificationEmail(Mage_Customer_Model_Customer $customer)
 	{
-		$to = $this->_getEmails(self::XML_PATH_EMAIL_ADMIN_NOTIFICATION, $customer->getStoreId());
-		return $this->_sendNotificationEmail($to, $customer, self::XML_PATH_EMAIL_ADMIN_NOTIFICATION_TEMPLATE);
+		if (Mage::getStoreConfig(self::XML_PATH_ALERT_ADMIN, $customer->getStoreId()))
+		{
+			$to = $this->_getEmails(self::XML_PATH_EMAIL_ADMIN_NOTIFICATION, $customer->getStoreId());
+			$this->_sendNotificationEmail($to, $customer, self::XML_PATH_EMAIL_ADMIN_NOTIFICATION_TEMPLATE);
+		}
+		return $this;
 	}
 
 	/**
@@ -43,11 +49,15 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	 */
 	public function sendCustomerNotificationEmail(Mage_Customer_Model_Customer $customer)
 	{
-		$to = array(array(
-			'name' => $customer->getName(),
-			'email' => $customer->getEmail(),
-		));
-		return $this->_sendNotificationEmail($to, $customer, self::XML_PATH_EMAIL_CUSTOMER_NOTIFICATION_TEMPLATE);
+		if (Mage::getStoreConfig(self::XML_PATH_ALERT_CUSTOMER, $customer->getStoreId()))
+		{
+			$to = array(array(
+				'name' => $customer->getName(),
+				'email' => $customer->getEmail(),
+			));
+			$this->_sendNotificationEmail($to, $customer, self::XML_PATH_EMAIL_CUSTOMER_NOTIFICATION_TEMPLATE);
+		}
+		return $this;
 	}
 
 	/**
