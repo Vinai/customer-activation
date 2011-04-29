@@ -52,11 +52,11 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 			
 			if (Mage::app()->getRequest()->getActionName() == 'createpost')
 			{
-				$session->addSuccess(Mage::helper('customer')->__('Please wait for your account to be activated'));
+				$session->addSuccess(Mage::helper('customeractivation')->__('Please wait for your account to be activated'));
 			}
 			else
 			{
-				Mage::throwException(Mage::helper('customer')->__('This account is not activated.'));
+				Mage::throwException(Mage::helper('customeractivation')->__('This account is not activated.'));
 			}
 		}
 	}
