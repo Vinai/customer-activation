@@ -33,9 +33,10 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	 */
 	public function sendAdminNotificationEmail(Mage_Customer_Model_Customer $customer)
 	{
-		if (Mage::getStoreConfig(self::XML_PATH_ALERT_ADMIN, $customer->getStoreId()))
+		$storeId = $this->getCustomerStoreId($customer);
+		if (Mage::getStoreConfig(self::XML_PATH_ALERT_ADMIN, $storeId))
 		{
-			$to = $this->_getEmails(self::XML_PATH_EMAIL_ADMIN_NOTIFICATION, $customer->getStoreId());
+			$to = $this->_getEmails(self::XML_PATH_EMAIL_ADMIN_NOTIFICATION, $storeId);
 			$this->_sendNotificationEmail($to, $customer, self::XML_PATH_EMAIL_ADMIN_NOTIFICATION_TEMPLATE);
 		}
 		return $this;
@@ -49,7 +50,7 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	 */
 	public function sendCustomerNotificationEmail(Mage_Customer_Model_Customer $customer)
 	{
-		if (Mage::getStoreConfig(self::XML_PATH_ALERT_CUSTOMER, $customer->getStoreId()))
+		if (Mage::getStoreConfig(self::XML_PATH_ALERT_CUSTOMER, $this->getCustomerStoreId($customer)))
 		{
 			$to = array(array(
 				'name' => $customer->getName(),
@@ -72,6 +73,8 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 	{
 		if (! $to) return;
 
+		$storeId = $this->getCustomerStoreId($customer);
+
 		$translate = Mage::getSingleton('core/translate');
 		/* @var $translate Mage_Core_Model_Translate */
 		$translate->setTranslateInline(false);
@@ -79,7 +82,7 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 		$mailTemplate = Mage::getModel('core/email_template');
 		/* @var $mailTemplate Mage_Core_Model_Email_Template */
 
-		$template = Mage::getStoreConfig($templateConfigPath, $customer->getStoreId());
+		$template = Mage::getStoreConfig($templateConfigPath, $storeId);
 
 		$sendTo = array();
 		foreach ($to as $recipient)
@@ -98,17 +101,17 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 		}
 		
 		foreach ($sendTo as $recipient) {
-			$mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>$customer->getStoreId()))
+			$mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>$storeId))
 			->sendTransactional(
 				$template,
-				Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_REGISTER_EMAIL_IDENTITY, $customer->getStoreId()),
+				Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_REGISTER_EMAIL_IDENTITY, $storeId),
 				$recipient['email'],
 				$recipient['name'],
 				array(
 					'customer' => $customer,
 					'shipping' => $customer->getPrimaryShippingAddress(),
 					'billing' => $customer->getPrimaryBillingAddress(),
-					'store' => Mage::app()->getStore($customer->getStoreId()),
+					'store' => Mage::app()->getStore($storeId),
 				)
 			);
 		}
@@ -125,5 +128,36 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
 			return explode(',', $data);
 		}
 		return false;
+	}
+
+	/**
+	 * Return the Store Id to read configuration settings for this customer from
+	 *
+	 * @param Mage_Customer_Model_Customer $customer
+	 * @return int
+	 */
+	public function getCustomerStoreId(Mage_Customer_Model_Customer $customer)
+	{
+		/*
+		 * Only set in Adminhtml UI
+		 */
+		if (! ($storeId = $customer->getSendemailStoreId()))
+		{
+			/*
+			 * store_id might be zero if the account was created in the admin interface
+			 */
+			$storeId = $customer->getStoreId();
+			if (! $storeId && $customer->getWebsiteId())
+			{
+				/*
+				 * Use the default store groups store of the customers website
+				 */
+				if ($store = Mage::app()->getWebsite($customer->getWebsiteId())->getDefaultStore())
+				{
+					$storeId = $store->getId();
+				}
+			}
+		}
+		return $storeId;
 	}
 }

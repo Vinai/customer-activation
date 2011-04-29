@@ -30,7 +30,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	 */
 	public function customerLogin($observer)
 	{
-		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, Mage::app()->getStore()))
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED))
 		{
 			return;
 		}
@@ -70,7 +70,9 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	{
 		$customer = $observer->getEvent()->getCustomer();
 
-		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, Mage::app()->getStore($customer->getStoreId())))
+		$storeId = Mage::helper('customeractivation')->getCustomerStoreId($customer);
+
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, $storeId))
 		{
 			return;
 		}
@@ -90,7 +92,9 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	{
 		$customer = $observer->getEvent()->getCustomer();
 
-		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, Mage::app()->getStore($customer->getStoreId())))
+		$storeId = Mage::helper('customeractivation')->getCustomerStoreId($customer);
+
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, $storeId))
 		{
 			return;
 		}
