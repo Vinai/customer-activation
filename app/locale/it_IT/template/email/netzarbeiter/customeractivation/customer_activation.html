@@ -1,4 +1,4 @@
-<!--@subject Il Tuo account è attivo, {{var customer.getName()}} @-->
+<!--@subject Il Tuo account Ã¨ attivo, {{var customer.getName()}} @-->
 
 <style type="text/css">
 body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
@@ -27,7 +27,7 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
 								<a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">Mio Account</a> dalla Home Page del sito inserendo email e password.
                             </p>
 
-                            <p>Per qualsiasi informazione o chiarimento non esitare a scriverci <a href="mailto:email@delnegozio.it" style="color:#1E7EC8;">email@delnegozio.it</a> o chiamaci allo (NUMERO-DEL-NEGOZIO).</p>
+                            <p>Per qualsiasi informazione o chiarimento non esitare a scriverci <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> o chiamaci allo {{config path='general/store_information/phone'}}.</p>
                             <p>Grazie, a presto!</p>
 
 
