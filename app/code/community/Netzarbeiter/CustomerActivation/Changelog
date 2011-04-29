@@ -1,7 +1,7 @@
 Changelog for Netzarbeiter_CustomerActivation
 
 0.3.2 2011-04-28
-- Added check of configuration values if emails should be sent (Thanks to rprice for the patch!)
+- Added check of configuration values if emails should be sent (Thanks to Ryan Price for the patch!)
 
 0.3.1 2011-03-23
 - Added shipping and billing address models as email variables
