@@ -60,15 +60,15 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 
 		if ($this->_isActive())
 		{
-			$this -> getMassactionBlock() -> addItem('customer_activated', array(
-				'label'   => Mage::helper('customer') -> __('Customer Activated'),
+			$this->getMassactionBlock()->addItem('customer_activated', array(
+				'label'   => Mage::helper('customer')->__('Customer Activated'),
 				'url'     => $this->getUrl('customeractivation/admin/massActivation'),
 				'additional' => array(
 					'status' => array(
 					'name'   => 'customer_activated',
 					'type'   => 'select',
 					'class'  => 'required-entry',
-					'label'  => Mage::helper('customer') -> __('Customer Activated'),
+					'label'  => Mage::helper('customer')->__('Customer Activated'),
 					'values' => array(
 						'1' => 'Yes',
 						'0' => 'No'
