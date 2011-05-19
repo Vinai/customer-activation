@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.3.4 2011-05-19
+- Add _isAllowed() method to admin controller
+
 0.3.3 2011-04-29
 - Use better logic to figure out the customer store id
 - Use config value variables in email templates (Thanks to Ryan Price once again!)
