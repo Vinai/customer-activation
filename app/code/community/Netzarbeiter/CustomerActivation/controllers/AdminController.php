@@ -53,4 +53,9 @@ class Netzarbeiter_CustomerActivation_AdminController extends Mage_Adminhtml_Con
 
 		$this->_redirect('adminhtml/customer');
 	}
+
+	protected function _isAllowed()
+	{
+		return Mage::getSingleton('admin/session')->isAllowed('customer/manage');
+	}
 }
