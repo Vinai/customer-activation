@@ -43,19 +43,48 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 		$customer = $observer->getEvent()->getCustomer();
 		$session = Mage::getSingleton('customer/session');
 
-		if (!$customer->getData('customer_activated'))
+		if (! $customer->getCustomerActivated())
 		{
 			/*
-			 * Fake the old logout() method without deleting the session and all messages XD
+			 * Fake the old logout() method without deleting the session and all messages
 			 */
 			$session->setCustomer(Mage::getModel('customer/customer'))->setId(null);
-			
-			if (Mage::app()->getRequest()->getActionName() == 'createpost')
+
+			if ($this->_checkRequestRoute('customer', 'account', 'createpost'))
 			{
-				$session->addSuccess(Mage::helper('customeractivation')->__('Please wait for your account to be activated'));
+				/*
+				 * If this is a regular registration, simply display message
+				 */
+				$message = Mage::helper('customeractivation')->__('Please wait for your account to be activated');
+
+				$session->addSuccess($message);
+			}
+			elseif ($this->_checkRequestRoute('checkout', 'onepage', 'saveorder'))
+			{
+				/*
+				 * If this is a checkout registration, abort the checkout and
+				 * redirect to login page
+				 */
+				$message = Mage::helper('customeractivation')->__(
+					'Please wait for your account to be activated, then log in and continue with the checkout'
+				);
+
+				Mage::getSingleton('core/session')->addSuccess($message);
+
+				$result = array(
+					'redirect' => Mage::getUrl('customer/account/login')
+				);
+				Mage::app()->getResponse()
+							->setBody(Mage::helper('core')->jsonEncode($result))
+							->sendResponse();
+				/* ugly, but we need to stop the further order processing */
+				exit();
 			}
 			else
 			{
+				/*
+				 * All other types of login
+				 */
 				Mage::throwException(Mage::helper('customeractivation')->__('This account is not activated.'));
 			}
 		}
@@ -133,4 +162,23 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 		return Mage::app()->getRequest()->getModuleName() === 'api';
 	}
 
+	/**
+	 * Check the current module, controller and action against the given values.
+	 *
+	 * @param string $module
+	 * @param string $controller
+	 * @param string $action
+	 * @return bool
+	 */
+	protected function _checkRequestRoute($module, $controller, $action)
+	{
+		$req = Mage::app()->getRequest();
+		if (strtolower($req->getModuleName()) == $module
+			&& strtolower($req->getControllerName()) == $controller
+			&& strtolower($req->getActionName()) == $action)
+		{
+			return true;
+		}
+		return false;
+	}
 }
