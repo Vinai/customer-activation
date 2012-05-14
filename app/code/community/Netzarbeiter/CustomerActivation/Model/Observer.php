@@ -12,9 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
- * package    Netzarbeiter_CustomerActivation
+ * package	Netzarbeiter_CustomerActivation
  * copyright  Copyright (c) 2011 Vinai Kopp http://netzarbeiter.com/
- * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * license	http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abstract
@@ -43,7 +43,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 		$customer = $observer->getEvent()->getCustomer();
 		$session = Mage::getSingleton('customer/session');
 
-		if (! $customer->getCustomerActivated())
+		if (!$customer->getCustomerActivated())
 		{
 			/*
 			 * Fake the old logout() method without deleting the session and all messages
@@ -75,8 +75,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 					'redirect' => Mage::getUrl('customer/account/login')
 				);
 				Mage::app()->getResponse()
-							->setBody(Mage::helper('core')->jsonEncode($result))
-							->sendResponse();
+						->setBody(Mage::helper('core')->jsonEncode($result))
+						->sendResponse();
 				/* ugly, but we need to stop the further order processing */
 				exit();
 			}
@@ -175,7 +175,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 		$req = Mage::app()->getRequest();
 		if (strtolower($req->getModuleName()) == $module
 			&& strtolower($req->getControllerName()) == $controller
-			&& strtolower($req->getActionName()) == $action)
+			&& strtolower($req->getActionName()) == $action
+		)
 		{
 			return true;
 		}
