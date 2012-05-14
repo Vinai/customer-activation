@@ -43,6 +43,7 @@ for the customer (when her account has been activated).
 With the latest release this module now also works when customer email confirmation is turned
 off.
 
+Thanks to Max for the updated french translation!
 Thanks to Junya Sano for the japanese translation!
 Thanks to SeL for the french translation and the bugfix!
 Thanks to SeL also for reporting the backend customer creation bug.
