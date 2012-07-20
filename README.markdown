@@ -5,7 +5,7 @@ This small extension makes it impossible for a customer to log in to magento, un
 
 The Extension was designed to be used together with the [Netzarbeiter_LoginCatalog][] extension
 Netzarbeiter_LoginCatalog only shows products to customers that are logged in.
-There also is the Extension [Netzarbeiter_GroupsCatalog][] which may suit your needs better,
+There also is the Extension [Netzarbeiter_GroupsCatalog2][] which may suit your needs better,
 you have to evaluate yourself what is the best solution for your case.
 
 This module can also be installed from [Magento Connect][mc].
