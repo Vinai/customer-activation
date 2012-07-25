@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
- * package	Netzarbeiter_CustomerActivation
+ * package    Netzarbeiter_CustomerActivation
  * copyright  Copyright (c) 2012 Vinai Kopp http://netzarbeiter.com/
- * license	http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abstract
 {
 	const XML_PATH_MODULE_DISABLED = 'customer/customeractivation/disable_ext';
+
+	const XML_PATH_DEFAULT_STATUS = 'customer/customeractivation/activation_status_default';
+
+	const XML_PATH_ALWAYS_NOTIFY_ADMIN = 'customer/customeractivation/always_send_admin_email';
 
 	/**
 	 * Fired on customer_login event
@@ -75,8 +79,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 					'redirect' => Mage::getUrl('customer/account/login')
 				);
 				Mage::app()->getResponse()
-						->setBody(Mage::helper('core')->jsonEncode($result))
-						->sendResponse();
+					->setBody(Mage::helper('core')->jsonEncode($result))
+					->sendResponse();
 				/* ugly, but we need to stop the further order processing */
 				exit();
 			}
@@ -108,6 +112,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 
 		if (!$customer->getId())
 		{
+			$defaultStatus = Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS, $storeId);
+			$customer->setCustomerActivated($defaultStatus);
 			$customer->setCustomerActivationNewAccount(true);
 		}
 	}
@@ -128,20 +134,31 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 			return;
 		}
 
+		$defaultStatus = Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS, $storeId);
+
 		try
 		{
 			if (Mage::app()->getStore()->isAdmin())
 			{
 				if (!$customer->getOrigData('customer_activated') && $customer->getCustomerActivated())
 				{
-					Mage::helper('customeractivation')->sendCustomerNotificationEmail($customer);
+					// Send customer email only if it isn't a new account and it isn't activated by default
+					if (!($customer->getCustomerActivationNewAccount() && $defaultStatus))
+					{
+						Mage::helper('customeractivation')->sendCustomerNotificationEmail($customer);
+					}
 				}
 			}
 			else
 			{
 				if ($customer->getCustomerActivationNewAccount())
 				{
-					Mage::helper('customeractivation')->sendAdminNotificationEmail($customer);
+					// Only notify the admin if the default is deactivated or the "always notify" flag is configured
+					$alwaysNotify = Mage::getStoreConfig(self::XML_PATH_ALWAYS_NOTIFY_ADMIN, $storeId);
+					if (!$defaultStatus || $alwaysNotify)
+					{
+						Mage::helper('customeractivation')->sendAdminNotificationEmail($customer);
+					}
 				}
 				$customer->setCustomerActivationNewAccount(false);
 			}

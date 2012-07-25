@@ -14,3 +14,6 @@
 "Customer Notification Email Template","Kunde Benachrichtigung Email Template"
 "Always enable in admin interface","Im Admin Backend immer aktiv"
 "If you want to activate accounts created via the admin interface","Zum Aktivieren von Kontos die im Admin Interface erstellt wurden"
+"Activate new Customer Accounts by Default","Neue Kunden automatisch aktivieren"
+"Always send Admin Notification","Admin Benachrichtigung immer senden"
+"Send the Admin notification email even if new accounts are activated by default","Admin Benachrichtigen auch wenn das Konto automatisch aktiviert wurde"
