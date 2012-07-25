@@ -19,6 +19,12 @@
 
 class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage_Adminhtml_Block_Customer_Grid
 {
+	protected function _construct()
+	{
+		$this->setModuleName('Mage_Adminhtml');
+		parent::_construct();
+	}
+
 	public function setCollection($collection)
 	{
 		if ($this->_isActive())
@@ -36,7 +42,7 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 			if ($name == 'action')
 			{
 				self::addColumn('customer_activated', array(
-					'header'    => Mage::helper('customer')->__('Customer Activated'),
+					'header'    => Mage::helper('customeractivation')->__('Customer Activated'),
 					'align'     => 'center',
 					'width'     => '80px',
 					'type'      => 'options',
@@ -61,14 +67,14 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 		if ($this->_isActive())
 		{
 			$this->getMassactionBlock()->addItem('customer_activated', array(
-				'label'   => Mage::helper('customer')->__('Customer Activated'),
+				'label'   => Mage::helper('customeractivation')->__('Customer Activated'),
 				'url'     => $this->getUrl('customeractivation/admin/massActivation'),
 				'additional' => array(
 					'status' => array(
 					'name'   => 'customer_activated',
 					'type'   => 'select',
 					'class'  => 'required-entry',
-					'label'  => Mage::helper('customer')->__('Customer Activated'),
+					'label'  => Mage::helper('customeractivation')->__('Customer Activated'),
 					'values' => array(
 						'1' => 'Yes',
 						'0' => 'No'
