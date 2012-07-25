@@ -21,7 +21,7 @@
 <config>
 	<modules>
 		<Netzarbeiter_CustomerActivation>
-			<version>0.3.5</version>
+			<version>0.3.6</version>
 		</Netzarbeiter_CustomerActivation>
 	</modules>
 	<global>
@@ -135,6 +135,8 @@
 				<registration_admin_template>customer_customeractivation_registration_admin_template</registration_admin_template>
 				<alert_customer>0</alert_customer>
 				<activation_template>customer_customeractivation_activation_template</activation_template>
+                <activation_status_default>0</activation_status_default>
+                <always_send_admin_email>0</always_send_admin_email>
 			</customeractivation>
 		</customer>
 	</default>
