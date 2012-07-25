@@ -36,13 +36,13 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 			if ($name == 'action')
 			{
 				self::addColumn('customer_activated', array(
-					'header'    => Mage::helper('customer')->__('Customer Activated'),
+					'header'    => $this->__('Customer Activated'),
 					'align'     => 'center',
 					'width'     => '80px',
 					'type'      => 'options',
 					'options'   => array(
-						'0' => 'No',
-						'1' => 'Yes'
+						'0' => $this->__('No'),
+						'1' => $this->__('Yes')
 					),
 					'default'   => '0',
 					'index'     => 'customer_activated',
@@ -61,17 +61,17 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid extends Mage
 		if ($this->_isActive())
 		{
 			$this->getMassactionBlock()->addItem('customer_activated', array(
-				'label'   => Mage::helper('customer')->__('Customer Activated'),
+				'label'   => $this->__('Customer Activated'),
 				'url'     => $this->getUrl('customeractivation/admin/massActivation'),
 				'additional' => array(
 					'status' => array(
 					'name'   => 'customer_activated',
 					'type'   => 'select',
 					'class'  => 'required-entry',
-					'label'  => Mage::helper('customer')->__('Customer Activated'),
+					'label'  => $this->__('Customer Activated'),
 					'values' => array(
-						'1' => 'Yes',
-						'0' => 'No'
+						'1' => $this->__('Yes'),
+						'0' => $this->__('No')
 					)
 				))
 			));
