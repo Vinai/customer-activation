@@ -14,4 +14,7 @@
 "Customer Notification Email Template","E-mailsjabloon voor klantnotificatie"
 "Always enable in admin interface","Altijd inschakelen in beheeromgeving"
 "If you want to activate accounts created via the admin interface","Of u accounts wilt activeren die via de beheeromgeving zijn aangemaakt."
+"Activate new Customer Accounts by Default","Nieuwe klantaccounts standaard activeren"
+"Always send Admin Notification","Stuur altijd een beheernotificatie"
+"Send the Admin notification email even if new accounts are activated by default","Stuur de beheernotificaties ook als nieuwe accounts standaard geactiveerd worden"
 "Customer Activated","Geactiveerd"
