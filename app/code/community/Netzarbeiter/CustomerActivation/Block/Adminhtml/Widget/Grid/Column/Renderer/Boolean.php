@@ -24,6 +24,6 @@ class Netzarbeiter_CustomerActivation_Block_Adminhtml_Widget_Grid_Column_Rendere
 	{
 		$data = (bool) $this->_getValue($row);
 		$value = $data ? 'Yes' : 'No';
-		return Mage::helper('customeractivation')->__($value);
+		return $this->__($value);
 	}
 }
