@@ -14,4 +14,6 @@
 "Customer Notification Email Template","Customer Notification Email Template"
 "Always enable in admin interface","Always enable in admin interface"
 "If you want to activate accounts created via the admin interface","If you want to activate accounts created via the admin interface"
-
+"Activate new Customer Accounts by Default","Activate new Customer Accounts by Default"
+"Always send Admin Notification","Always send Admin Notification"
+"Send the Admin notification email even if new accounts are activated by default","Send the Admin notification email even if new accounts are activated by default"
