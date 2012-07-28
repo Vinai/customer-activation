@@ -1,5 +1,11 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.3.7 2012-07-28
+- Move customer grid rewrite to observer to avoid conflicts with other modules
+
+0.3.6 2012-07-22
+- Add configurable feature "Enable customer accounts by default"
+
 0.3.5 2012-07-20
 - Change session model for messages to core/session
 
