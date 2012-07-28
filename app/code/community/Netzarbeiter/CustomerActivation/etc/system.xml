@@ -47,6 +47,9 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
 							<comment>If you want to activate accounts created via the admin interface</comment>
+							<depends>
+								<disable_ext>1</disable_ext>
+							</depends>
                         </always_active_in_admin>
                         <alert_admin translate="label" module="customeractivation">
                             <label>Notify Admin on Customer Registration</label>
@@ -56,6 +59,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+							<depends>
+								<disable_ext>0</disable_ext>
+							</depends>
                         </alert_admin>
 						<admin_email translate="label" module="customeractivation">
 							<label>Admin Email Address</label>
@@ -66,6 +72,7 @@
                             <show_in_store>0</show_in_store>
                             <depends>
                                 <alert_admin>1</alert_admin>
+								<disable_ext>0</disable_ext>
                             </depends>
 						</admin_email>
                         <registration_admin_template translate="label" module="customeractivation">
@@ -78,6 +85,7 @@
                             <show_in_store>0</show_in_store>
                             <depends>
                                 <alert_admin>1</alert_admin>
+								<disable_ext>0</disable_ext>
                             </depends>
                         </registration_admin_template>
                         <alert_customer translate="label" module="customeractivation">
@@ -88,6 +96,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+							<depends>
+								<disable_ext>0</disable_ext>
+							</depends>
                         </alert_customer>
                         <activation_template translate="label" module="customeractivation">
                             <label>Customer Notification Email Template</label>
@@ -99,6 +110,7 @@
                             <show_in_store>1</show_in_store>
                             <depends>
                                 <alert_customer>1</alert_customer>
+								<disable_ext>0</disable_ext>
                             </depends>
                         </activation_template>
                         <activation_status_default translate="label" module="customeractivation">
@@ -109,6 +121,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+							<depends>
+								<disable_ext>0</disable_ext>
+							</depends>
                         </activation_status_default>
                         <always_send_admin_email translate="label comment" module="customeractivation">
                             <label>Always send Admin Notification</label>
@@ -121,6 +136,7 @@
                             <comment>Send the Admin notification email even if new accounts are activated by default</comment>
                             <depends>
                                 <activation_status_default>1</activation_status_default>
+								<disable_ext>0</disable_ext>
                             </depends>
                         </always_send_admin_email>
                     </fields>
