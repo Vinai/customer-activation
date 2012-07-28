@@ -39,12 +39,6 @@
 			<customeractivation>
 				<class>Netzarbeiter_CustomerActivation_Block</class>
 			</customeractivation>
-			<adminhtml>
-				<rewrite>
-					<!-- overwrite Mage_Adminhtml_Block_Customer_Grid to add activation to grid -->
-					<customer_grid>Netzarbeiter_CustomerActivation_Block_Adminhtml_Customer_Grid</customer_grid>
-				</rewrite>
-			</adminhtml>
 		</blocks>
 		<resources>
 			<customeractivation_setup>
@@ -151,6 +145,26 @@
                 </Netzarbeiter_CustomerActivation>
             </modules>
         </translate>
+        <events>
+			<!-- Use core_block_abstract_to_html_before instead of adminhtml_block_html_before -->
+			<!-- his is required because otherwise the filtering and sorting is processed before the column is added -->
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <customeractivation>
+                        <class>customeractivation/observer</class>
+                        <method>coreBlockAbstractToHtmlBefore</method>
+                    </customeractivation>
+                </observers>
+            </core_block_abstract_to_html_before>
+			<eav_collection_abstract_load_before>
+				<observers>
+					<customeractivation>
+						<class>customeractivation/observer</class>
+						<method>eavCollectionAbstractLoadBefore</method>
+					</customeractivation>
+				</observers>
+			</eav_collection_abstract_load_before>
+        </events>
 	</adminhtml>
 
 </config>
