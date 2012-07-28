@@ -18,3 +18,7 @@
 "Always send Admin Notification","Always send Admin Notification"
 "Send the Admin notification email even if new accounts are activated by default","Send the Admin notification email even if new accounts are activated by default"
 "Customer Activated","Customer Activated"
+"Yes","Yes"
+"No","No"
+"Please select item(s)","Please select item(s)"
+"Total of %d record(s) were successfully saved","Total of %d record(s) were successfully saved"
