@@ -25,22 +25,25 @@ class Netzarbeiter_CustomerActivation_AdminController extends Mage_Adminhtml_Con
 
 		if(! is_array($customerIds))
 		{
-			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select item(s)'));
+			Mage::getSingleton('adminhtml/session')->addError(
+				Mage::helper('customeractivation')->__('Please select item(s)')
+			);
 		}
 		else
 		{
+			/** @var $model Mage_Customer_Model_Customer */
 			$model = Mage::getModel('customer/customer');
-			/* @var $model Mage_Customer_Model_Customer */
+			$activationStatus = $this->getRequest()->getParam('customer_activated');
 			try
 			{
 				foreach($customerIds as $customerId)
 				{
 					$model->reset()->load($customerId);
-					$model->setCustomerActivated($this->getRequest()->getParam('customer_activated'))->save();
+					$model->setCustomerActivated($activationStatus)->save();
 				}
 
 				Mage::getSingleton('adminhtml/session')->addSuccess(
-					Mage::helper('adminhtml')->__(
+					Mage::helper('customeractivation')->__(
 						'Total of %d record(s) were successfully saved', count($customerIds)
 					)
 				);
