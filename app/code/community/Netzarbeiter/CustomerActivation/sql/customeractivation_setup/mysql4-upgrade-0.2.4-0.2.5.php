@@ -26,4 +26,3 @@ $attrSetId = $customer->getResource()->getEntityType()->getDefaultAttributeSetId
 $this->addAttributeToSet('customer', $attrSetId, 'General', 'customer_activated');
 
 $this->endSetup();
-
