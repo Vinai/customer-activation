@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.3.8 2012-08-07
+- Don't reuse the customer model for mass actions - it messes up the addresses
+
 0.3.7 2012-07-28
 - Move customer grid rewrite to observer to avoid conflicts with other modules
 

@@ -31,14 +31,13 @@ class Netzarbeiter_CustomerActivation_AdminController extends Mage_Adminhtml_Con
 		}
 		else
 		{
-			/** @var $model Mage_Customer_Model_Customer */
-			$model = Mage::getModel('customer/customer');
 			$activationStatus = $this->getRequest()->getParam('customer_activated');
 			try
 			{
-				foreach($customerIds as $customerId)
+				foreach ($customerIds as $customerId)
 				{
-					$model->reset()->load($customerId);
+					/** @var $model Mage_Customer_Model_Customer */
+					$model = Mage::getModel('customer/customer')->load($customerId);
 					$model->setCustomerActivated($activationStatus)->save();
 				}
 
