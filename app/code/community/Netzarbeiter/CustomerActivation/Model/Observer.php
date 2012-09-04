@@ -201,7 +201,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	}
 
 	/**
-	 * Add customer_activated attribute to grid and add the mass action block, too.
+	 * Add customer_activated attribute to grid.
 	 *
 	 * Thanks to Rouven Alexander Rieker <rouven.rieker@itabs.de> for the base code.
 	 *
@@ -243,30 +243,45 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 			// Set the new columns order.. otherwise our column would be the last one
 			$block->sortColumnsByOrder();
 
-			// Check if there is a massaction block and if yes, add the massaction for customeractivation
-			$massBlock = $block->getMassactionBlock();
-			if ($massBlock)
-			{
-				$massBlock->addItem(
-					'customer_activated',
-					array(
-						'label' => $helper->__('Customer Activated'),
-						'url' => Mage::getUrl('customeractivation/admin/massActivation'),
-						'additional' => array(
-							'status' => array(
-								'name' => 'customer_activated',
-								'type' => 'select',
-								'class' => 'required-entry',
-								'label' => $helper->__('Customer Activated'),
-								'values' => array(
-									'1' => $helper->__('Yes'),
-									'0' => $helper->__('No')
-								)
+		}
+
+	}
+
+	/**
+	 * Add customer activation option to the mass action block.
+	 *
+	 * This can't be done during the block abstract e
+	 *
+	 * @param Varien_Event_Observer $observer
+	 */
+	public function adminhtmlBlockHtmlBefore(Varien_Event_Observer $observer)
+	{
+		// Check if there is a massaction block and if yes, add the massaction for customeractivation
+		$massBlock = $observer->getBlock()->getMassactionBlock();
+		if ($massBlock)
+		{
+			/** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
+			$helper = Mage::helper('customeractivation');
+
+			$massBlock->addItem(
+				'customer_activated',
+				array(
+					'label' => $helper->__('Customer Activated'),
+					'url' => Mage::getUrl('customeractivation/admin/massActivation'),
+					'additional' => array(
+						'status' => array(
+							'name' => 'customer_activated',
+							'type' => 'select',
+							'class' => 'required-entry',
+							'label' => $helper->__('Customer Activated'),
+							'values' => array(
+								'1' => $helper->__('Yes'),
+								'0' => $helper->__('No')
 							)
 						)
 					)
-				);
-			}
+				)
+			);
 		}
 	}
 
