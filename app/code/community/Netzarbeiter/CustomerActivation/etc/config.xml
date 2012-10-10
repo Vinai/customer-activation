@@ -151,6 +151,7 @@
 			<core_block_abstract_to_html_before>
 				<observers>
 					<customeractivation>
+						<type>model</type>
 						<class>customeractivation/observer</class>
 						<method>coreBlockAbstractToHtmlBefore</method>
 					</customeractivation>
@@ -161,6 +162,7 @@
 			<adminhtml_block_html_before>
 				<observers>
 					<customeractivation>
+						<type>model</type>
 						<class>customeractivation/observer</class>
 						<method>adminhtmlBlockHtmlBefore</method>
 					</customeractivation>
@@ -170,6 +172,7 @@
 			<eav_collection_abstract_load_before>
 				<observers>
 					<customeractivation>
+						<type>model</type>
 						<class>customeractivation/observer</class>
 						<method>eavCollectionAbstractLoadBefore</method>
 					</customeractivation>
