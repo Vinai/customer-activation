@@ -3,7 +3,7 @@
     "type":"magento-module",
     "license":"OSL-3.0",
     "homepage":"https://github.com/Vinai/customer-activation",
-    "description":"Makes it impossible for a customer to log in until the account has been activated by the admin.",
+    "description":"Makes it impossible for a customer to log in until the account has been activated by the administrator.",
     "authors":[
         {
             "name":"Vinai Kopp",
