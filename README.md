@@ -14,6 +14,14 @@ Facts
 
 Description
 -----------
+This small extension makes it impossible for a customer to log in to magento,
+until the account has been activated in the adminhtml interface.
+
+Customers - Manage Customers - (select customer) - Account Information - Is activated
+
+You can also select email notifications for the admin (when a new customer registers) and
+for the customer (when her account has been activated).
+
 The Extension was designed to be used together with the [Netzarbeiter_LoginCatalog][] extension.
 Netzarbeiter_LoginCatalog only shows products to customers that are logged in.
 There also is the Extension [Netzarbeiter_GroupsCatalog2][] which may suit your needs better,
@@ -34,6 +42,19 @@ Installation Instructions
 1. Install the extension via Magento Connect with the key shown above or copy all the files into your document root.
 2. Clear the cache, logout from the admin panel and then login again.
 3. Configure and activate the extension under System - Configuration - Customer Configuration - Customer Activation
+
+Acknowledgements
+----------------
+Thanks to Max for the updated french translation!
+Thanks to Junya Sano for the japanese translation!
+Thanks to SeL for the french translation and the bugfix!
+Thanks to SeL also for reporting the backend customer creation bug.
+Thanks to Toon van Veelen for the dutch translation!
+Thanks to Erik Hoeksma for the Greek translation!
+Thanks to PaulE for the integration in the admin grid for mass activation of customers!
+Thanks to Finn Snaterse for the inclusion in the Adminhtml Grid!
+Thanks to Aaron Kondziela for reminding me to clean up the admin customer edit page stuff!
+Thanks to Chiara Piatti for the italian translation!
 
 Support
 -------
