@@ -43,6 +43,19 @@ Installation Instructions
 2. Clear the cache, logout from the admin panel and then login again.
 3. Configure and activate the extension under System - Configuration - Customer Configuration - Customer Activation
 
+Uninstallation Instructions
+---------------------------
+1. Delete the file app/etc/modules/Netzarbeiter_CustomerActivation.xml
+2. Execute the following SQL:
+```
+   DELETE FROM eav_attribute WHERE attribute_code = 'customer_activated';
+   DELETE FROM core_resource WHERE code = 'customeractivation_setup';
+```
+3. Remove all remaining extension files
+   - app/code/community/Netzarbeiter/CustomerActivation/
+   - app/locale/*/Netzarbeiter_CustomerActivation.csv
+   - app/locale/*/template/email/netzarbeiter/customeractivation
+
 Acknowledgements
 ----------------
 Thanks to Max for the updated french translation!
