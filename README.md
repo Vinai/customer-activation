@@ -46,7 +46,7 @@ Installation Instructions
 Uninstallation Instructions
 ---------------------------
 1. Delete the file app/etc/modules/Netzarbeiter_CustomerActivation.xml
-2. Execute the following SQL:
+2. Execute the following SQL:  
 ```sql
    DELETE FROM eav_attribute WHERE attribute_code = 'customer_activated';
 ```
