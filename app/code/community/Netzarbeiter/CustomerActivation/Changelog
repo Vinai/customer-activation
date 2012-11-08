@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.4.0 2012-11-08
+- Bugfix: only apply mass action to customer grid.
+
 0.3.9 2012-09-25
 - Change observer declaration to <type>model</type> to avoid strange bug a user was reporting
 
