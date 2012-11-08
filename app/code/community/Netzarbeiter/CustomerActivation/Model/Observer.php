@@ -256,6 +256,11 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	 */
 	public function adminhtmlBlockHtmlBefore(Varien_Event_Observer $observer)
 	{
+		// Check the grid is the customer grid
+		if ($observer->getBlock()->getId() != 'customerGrid') {
+			return;
+		}
+
 		// Check if there is a massaction block and if yes, add the massaction for customeractivation
 		$massBlock = $observer->getBlock()->getMassactionBlock();
 		if ($massBlock)
