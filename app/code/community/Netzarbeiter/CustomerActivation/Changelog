@@ -1,5 +1,9 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.4.1 2012-12-05
+- Bugfix: properly handle checkout registrations,
+          support onepage and multishipping checkout.
+
 0.4.0 2012-11-08
 - Bugfix: only apply mass action to customer grid.
 
