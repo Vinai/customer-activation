@@ -63,27 +63,6 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 
 				$session->addSuccess($message);
 			}
-			elseif ($this->_checkRequestRoute('checkout', 'onepage', 'saveorder'))
-			{
-				/*
-				 * If this is a checkout registration, abort the checkout and
-				 * redirect to login page
-				 */
-				$message = Mage::helper('customeractivation')->__(
-					'Please wait for your account to be activated, then log in and continue with the checkout'
-				);
-
-				Mage::getSingleton('core/session')->addSuccess($message);
-
-				$result = array(
-					'redirect' => Mage::getUrl('customer/account/login')
-				);
-				Mage::app()->getResponse()
-					->setBody(Mage::helper('core')->jsonEncode($result))
-					->sendResponse();
-				/* ugly, but we need to stop the further order processing */
-				exit();
-			}
 			else
 			{
 				/*
@@ -166,6 +145,78 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 		catch (Exception $e)
 		{
 			Mage::throwException($e->getMessage());
+		}
+	}
+
+	public function salesCovertQuoteAddressToOrder(Varien_Event_Observer $observer)
+	{
+		/** @var $address Mage_Sales_Model_Quote_Address */
+		$address = $observer->getEvent()->getAddress();
+		$this->_abortCheckoutRegistration($address->getQuote());
+	}
+
+	/**
+	 * Abort registration during checkout if default activation status is false.
+	 *
+	 * Should work with: onepage checkout, multishipping checkout and custom
+	 * checkout types, as long as they use the standard converter model
+	 * Mage_Sales_Model_Convert_Quote.
+	 *
+	 * Expected state after checkout:
+	 * - Customer saved
+	 * - No order placed
+	 * - Guest quote still contains items
+	 * - Customer quote contains no items
+	 * - Customer redirected to login page
+	 * - Customer sees message
+	 *
+	 * @param Varien_Event_Observer $observer
+	 */
+	protected function _abortCheckoutRegistration(Mage_Sales_Model_Quote $quote)
+	{
+		if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, $quote->getStoreId()))
+		{
+			return;
+		}
+
+		if ($this->_isApiRequest())
+		{
+			return;
+		}
+
+		if (!Mage::getSingleton('customer/session')->isLoggedIn() && !$quote->getCustomerIsGuest())
+		{
+			// Order is being created by non-activated customer
+			$customer = $quote->getCustomer()->save();
+			if (! $customer->getCustomerActivated()) {
+				// Abort order placement
+				// Exception handling can not be assumed to be useful
+
+				// Todo: merge guest quote to customer quote and save customer quote, but don't log customer in
+
+				// Add message
+				$message = Mage::helper('customeractivation')->__(
+					'Please wait for your account to be activated, then log in and continue with the checkout'
+				);
+				Mage::getSingleton('core/session')->addSuccess($message);
+
+				// Handle redirect to login page
+				$targetUrl = Mage::getUrl('customer/account/login');
+				$response = Mage::app()->getResponse();
+
+				if (Mage::app()->getRequest()->isAjax()) {
+					// Assume one page checkout
+					$result = array('redirect' => $targetUrl);
+					$response->setBody(Mage::helper('core')->jsonEncode($result));
+				} else if ($response->canSendHeaders(true)) {
+					// Assume multishipping checkout
+					$response->clearHeader('location')
+						->setRedirect($targetUrl);
+				}
+				$response->sendResponse();
+				/* ugly, but we need to stop the further order processing */
+				exit();
+			}
 		}
 	}
 
@@ -257,7 +308,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 	public function adminhtmlBlockHtmlBefore(Varien_Event_Observer $observer)
 	{
 		// Check the grid is the customer grid
-		if ($observer->getBlock()->getId() != 'customerGrid') {
+		if ($observer->getBlock()->getId() != 'customerGrid')
+		{
 			return;
 		}
 
