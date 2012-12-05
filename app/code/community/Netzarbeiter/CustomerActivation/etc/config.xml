@@ -107,6 +107,15 @@
 					</customeractivation>
 				</observers>
 			</customer_save_before>
+			<sales_convert_quote_address_to_order>
+				<observers>
+					<customeractivation>
+						<type>singleton</type>
+						<class>customeractivation/observer</class>
+						<method>salesCovertQuoteAddressToOrder</method>
+					</customeractivation>
+				</observers>
+			</sales_convert_quote_address_to_order>
 		</events>
         <translate>
             <modules>
