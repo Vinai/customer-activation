@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.4.2 2013-01-16
+- Update composer dependency on stable magento-composer-installer
+
 0.4.1 2012-12-05
 - Bugfix: properly handle checkout registrations,
           support onepage and multishipping checkout.
