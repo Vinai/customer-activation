@@ -25,12 +25,11 @@ $installer->startSetup();
 /*
  * Add required information for Magento 1.4.2
  */
-if (version_compare(Mage::getVersion(), '1.4.2', '>='))
-{
-	Mage::getSingleton('eav/config')
-		->getAttribute('customer', 'customer_activated')
-		->setData('used_in_forms', array('adminhtml_customer'))
-		->save();
+if (version_compare(Mage::getVersion(), '1.4.2', '>=')) {
+    Mage::getSingleton('eav/config')
+            ->getAttribute('customer', 'customer_activated')
+            ->setData('used_in_forms', array('adminhtml_customer'))
+            ->save();
 }
 
 
