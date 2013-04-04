@@ -151,7 +151,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
      * - Customer redirected to login page
      * - Customer sees message
      *
-     * @param Varien_Event_Observer $observer
+     * @param Mage_Sales_Model_Quote $quote
      */
     protected function _abortCheckoutRegistration(Mage_Sales_Model_Quote $quote)
     {
