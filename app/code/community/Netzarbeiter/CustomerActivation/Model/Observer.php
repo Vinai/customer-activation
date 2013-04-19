@@ -21,8 +21,6 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
 {
     const XML_PATH_MODULE_DISABLED = 'customer/customeractivation/disable_ext';
 
-    const XML_PATH_DEFAULT_STATUS = 'customer/customeractivation/activation_status_default';
-
     const XML_PATH_ALWAYS_NOTIFY_ADMIN = 'customer/customeractivation/always_send_admin_email';
 
     /**
@@ -83,7 +81,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
         }
 
         if (!$customer->getId()) {
-            $defaultStatus = Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS, $storeId);
+            $groupId = $customer->getGroupId();
+            $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
             $customer->setCustomerActivated($defaultStatus);
             $customer->setCustomerActivationNewAccount(true);
         }
@@ -96,6 +95,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
      */
     public function customerSaveAfter($observer)
     {
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getEvent()->getCustomer();
 
         $storeId = Mage::helper('customeractivation')->getCustomerStoreId($customer);
@@ -104,7 +104,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
             return;
         }
 
-        $defaultStatus = Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS, $storeId);
+        $groupId = $customer->getGroupId();
+        $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
 
         try {
             if (Mage::app()->getStore()->isAdmin()) {

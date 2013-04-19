@@ -24,6 +24,9 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
     const XML_PATH_EMAIL_CUSTOMER_NOTIFICATION_TEMPLATE = 'customer/customeractivation/activation_template';
     const XML_PATH_ALERT_CUSTOMER = 'customer/customeractivation/alert_customer';
     const XML_PATH_ALERT_ADMIN = 'customer/customeractivation/alert_admin';
+    const XML_PATH_DEFAULT_STATUS = 'customer/customeractivation/activation_status_default';
+    const XML_PATH_DEFAULT_STATUS_BY_GROUP = 'customer/customeractivation/require_activation_for_specific_groups';
+    const XML_PATH_DEFAULT_STATUS_GROUPS = 'customer/customeractivation/require_activation_groups';
 
     /**
      * Send Admin a notification whenever a new customer account is registered
@@ -150,5 +153,24 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
             }
         }
         return $storeId;
+    }
+
+    /**
+     * Return the default activation status for a given group and store Id
+     *
+     * @param int $groupId
+     * @param int $storeId
+     * @return bool
+     */
+    public function getDefaultActivationStatus($groupId, $storeId)
+    {
+        if (Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS_BY_GROUP, $storeId)) {
+            $notActiveGroups = explode(',', Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS_GROUPS, $storeId));
+            $isActive = in_array($groupId, $notActiveGroups) ? false : true;
+        } else {
+            $isActive = Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS, $storeId);
+        }
+
+        return $isActive;
     }
 }
