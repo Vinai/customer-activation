@@ -140,6 +140,8 @@
 				<activation_template>customer_customeractivation_activation_template</activation_template>
                 <activation_status_default>0</activation_status_default>
                 <always_send_admin_email>0</always_send_admin_email>
+                <require_activation_for_specific_groups>0</require_activation_for_specific_groups>
+                <require_activation_groups></require_activation_groups>
 			</customeractivation>
 		</customer>
 	</default>
