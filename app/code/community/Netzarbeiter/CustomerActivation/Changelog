@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.4.3 2013-04-20
+- New feature: require activation only for specific groups
+
 0.4.2 2013-01-16
 - Update composer dependency on stable magento-composer-installer
 

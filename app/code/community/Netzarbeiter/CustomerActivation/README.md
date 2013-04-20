@@ -22,6 +22,8 @@ Customers - Manage Customers - (select customer) - Account Information - Is acti
 You can also select email notifications for the admin (when a new customer registers) and
 for the customer (when her account has been activated).
 
+New customers can be configured to be activated by default. This can also be done on a per group basis.
+
 The Extension was designed to be used together with the [Netzarbeiter_LoginCatalog][] extension.
 Netzarbeiter_LoginCatalog only shows products to customers that are logged in.
 There also is the Extension [Netzarbeiter_GroupsCatalog2][] which may suit your needs better,
