@@ -1,0 +1,107 @@
+#
+# Netzarbeiter
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to the Open Software License (OSL 3.0)
+# that is bundled with this package in the file LICENSE.txt.
+# It is also available through the world-wide-web at this URL:
+# http://opensource.org/licenses/osl-3.0.php
+#
+# DISCLAIMER
+#
+# Do not edit or add to this file if you wish to upgrade this Module to
+# newer versions in the future.
+#
+# @category   Netzarbeiter
+# @package    Netzarbeiter_CustomerActivation
+# @copyright  Copyright (c) 2013 Vinai Kopp http://netzarbeiter.com
+# @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+#
+
+scope:
+  website: # Initialize websites
+    - website_id: 2
+      code: usa_website
+      name: USA Website
+      default_group_id: 2
+    - website_id: 3
+      code: canada_website
+      name: Canada Website
+      default_group_id: 3
+    - website_id: 4
+      code: german_website
+      name: German Website
+      default_group_id: 4
+  group: # Initializes store groups
+    - group_id: 2
+      website_id: 2
+      name: USA Store Group
+      default_store_id: 2
+      root_category_id: 2 # Default Category
+    - group_id: 3
+      website_id: 3
+      name: Canada Store Group
+      default_store_id: 3
+      root_category_id: 2 # Default Category
+    - group_id: 4
+      website_id: 4
+      name: German Store Group
+      default_store_id: 4
+      root_category_id: 2 # Default Category
+  store: # Initializes store views
+    - store_id: 2
+      website_id: 2
+      group_id: 2
+      code: usa
+      name: USA Store
+      is_active: 1
+    - store_id: 6
+      website_id: 2
+      group_id: 2
+      code: usa2
+      name: USA Store 2
+      is_active: 1
+    - store_id: 3
+      website_id: 3
+      group_id: 3
+      code: canada
+      name: Canada Store
+      is_active: 1
+    - store_id: 4
+      website_id: 4
+      group_id: 4
+      code: germany
+      name: Germany Store
+      is_active: 1
+    - store_id: 5
+      website_id: 4
+      group_id: 4
+      code: germany2
+      name: Germany Store 2
+      is_active: 1
+
+tables:
+  customer/customer_group:
+    - customer_group_id: 0
+      customer_group_code: NOT LOGGED IN
+      tax_class_id: 3 # default customer tax class id
+    - customer_group_id: 1
+      customer_group_code: General
+      tax_class_id: 3
+    - customer_group_id: 2
+      customer_group_code: Wholesale
+      tax_class_id: 3
+    - customer_group_id: 3
+      customer_group_code: Retailer
+      tax_class_id: 3
+
+config:
+  default/customer/customeractivation/disable_ext: 0
+  default/customer/customeractivation/always_active_in_admin: 0
+  default/customer/customeractivation/alert_admin: 0
+  default/customer/customeractivation/alert_customer: 0
+  default/customer/customeractivation/activation_status_default: 0
+  default/customer/customeractivation/always_send_admin_email: 0
+  default/customer/customeractivation/require_activation_for_specific_groups: 0
+  default/customer/customeractivation/require_activation_groups: 2,3 # Wholesale, Retailer
