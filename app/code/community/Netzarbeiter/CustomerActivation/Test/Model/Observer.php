@@ -73,6 +73,10 @@ class Netzarbeiter_CustomerActivation_Test_Model_Observer extends EcomDev_PHPUni
             'email' => $email,
         ))->save();
 
+        // Since it's so easy thanks to EcomDev_PHPUnit, lets check triggered events, too
+        $this->assertEventDispatchedExactly('customer_save_before', 1);
+        $this->assertEventDispatchedExactly('customer_save_after', 1);
+
         $expected = $this->expected("%s-%d-%d-%d", $storeCode, $group->getId(), $activeByDefault, $specificGroups)
             ->getIsActivated();
 
