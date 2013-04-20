@@ -63,10 +63,6 @@ class Netzarbeiter_CustomerActivation_Test_Model_Observer extends EcomDev_PHPUni
         $store->setConfig(Netzarbeiter_CustomerActivation_Helper_Data::XML_PATH_DEFAULT_STATUS_BY_GROUP, $specificGroups);
         $this->setCurrentStore($store);
 
-        $getActiveByDefault = Mage::getStoreConfig(Netzarbeiter_CustomerActivation_Helper_Data::XML_PATH_DEFAULT_STATUS, $store->getId());
-        $getSpecificGroups = Mage::getStoreConfig(Netzarbeiter_CustomerActivation_Helper_Data::XML_PATH_DEFAULT_STATUS_BY_GROUP, $store->getId());
-        $getSpecificGroupsList = Mage::getStoreConfig(Netzarbeiter_CustomerActivation_Helper_Data::XML_PATH_DEFAULT_STATUS_GROUPS, $store->getId());
-
         /* @var $group Mage_Customer_Model_Group */
         $group = Mage::getModel('customer/group')->load($groupCode, 'customer_group_code');
         $this->_model = Mage::getModel('customer/customer');
