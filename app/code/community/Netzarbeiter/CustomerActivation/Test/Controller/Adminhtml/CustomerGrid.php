@@ -150,13 +150,12 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
 
         $this->assertResponseHeaderEquals('content-type', 'application/octet-stream');
 
-        $attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'customer_activated');
-        $label = $attribute->getFrontendLabel();
+        $label = 'Customer Activated';
 
         list($exportHeaders) = explode("\n", $body);
         $columns = str_getcsv($exportHeaders);
 
-        $this->assertTrue(in_array($attribute->getFrontendLabel(), $columns), "Column \"$label\" not found in CSV export columns");
+        $this->assertTrue(in_array($label, $columns), "Column \"$label\" not found in CSV export columns");
     }
 
     /**
@@ -168,8 +167,7 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
 
         $this->assertResponseHeaderEquals('content-type', 'application/octet-stream');
 
-        $attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'customer_activated');
-        $label = $attribute->getFrontendLabel();
+        $label = 'Customer Activated';
 
         /** @var SimpleXmlElement $xml */
         $xml = simplexml_load_string($body);
