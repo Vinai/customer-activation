@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.4.4 2013-04-21
+- Minor new feature: export to CSV or XML now contains the activation status column
+
 0.4.3 2013-04-20
 - New feature: require activation only for specific groups
 
