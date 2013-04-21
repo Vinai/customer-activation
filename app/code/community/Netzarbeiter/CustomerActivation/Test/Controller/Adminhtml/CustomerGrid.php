@@ -51,6 +51,26 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
     }
 
     /**
+     * Disable the admin notification rss feed
+     */
+    protected function disableAdminNotifications()
+    {
+        // Disable notification feed during test
+        $mockFeed = $this->getModelMockBuilder('adminnotification/feed')
+            ->disableOriginalConstructor()
+            ->setMethods(array('checkUpdate', 'getFeedData'))
+            ->getMock();
+        $mockFeed->expects($this->any())
+            ->method('checkUpdate')
+            ->will($this->returnSelf());
+        $mockFeed->expects($this->any())
+            ->method('getFeedData')
+            ->will($this->returnValue(''));
+
+        $this->replaceByMock('model', 'adminnotification/feed', $mockFeed);
+    }
+
+    /**
      * Requires phpunit/test_helpers to be installed so exit() can be overloaded.
      *
      * See https://github.com/sebastianbergmann/php-test-helpers
@@ -82,31 +102,6 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
             $this->markTestSkipped("phpunit/test_helpers with set_exit_overload() not installed.");
         }
         return $responseBody;
-    }
-
-    /**
-     * Disable the admin notification rss feed
-     * @todo For some reason the feed STILL IS BEING FETCHED - check when time
-     */
-    protected function disableAdminNotifications()
-    {
-        // Disable notification feed during test
-        $path = 'adminhtml/events/controller_action_predispatch/observers/adminnotification/type';
-        $this->app()->getConfig()->setNode($path, 'disabled');
-
-        $mockFeed = $this->getModelMockBuilder('adminnotification/feed')
-            ->disableOriginalConstructor()
-            ->setMethods(array('checkUpdate', 'getFeedData'))
-            ->getMock();
-        $mockFeed->expects($this->any())
-            ->method('checkUpdate')
-            ->will($this->returnSelf());
-        $mockFeed->expects($this->any())
-            ->method('getFeedData')
-            ->will($this->returnValue(''));
-
-        $this->replaceByMock('model', 'adminnotification/feed', $mockFeed);
-
     }
 
     /**
@@ -185,13 +180,14 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
                     $value = (string) $cell->Data;
                     if ($value == $label) {
                         $found = true;
-                        break;
+                        break(3);
                     }
                 }
                 // Only check the first row
-                break;
+                break(2);
             }
         }
+
         $this->assertTrue($found, "Column \"$label\" not found in Excel export columns");
     }
 }
