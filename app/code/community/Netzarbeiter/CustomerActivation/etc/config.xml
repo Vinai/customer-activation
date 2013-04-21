@@ -177,6 +177,7 @@
                 </observers>
             </adminhtml_block_html_before>
 
+            <!-- Add attribute to grid collection -->
             <eav_collection_abstract_load_before>
                 <observers>
                     <customeractivation>
@@ -186,6 +187,17 @@
                     </customeractivation>
                 </observers>
             </eav_collection_abstract_load_before>
+
+            <!-- Add column to csv and xml export -->
+            <core_block_abstract_prepare_layout_after>
+                <observers>
+                    <customeractivation>
+                        <type>singleton</type>
+                        <class>customeractivation/observer</class>
+                        <method>coreBlockAbstractPrepareLayoutAfter</method>
+                    </customeractivation>
+                </observers>
+            </core_block_abstract_prepare_layout_after>
         </events>
     </adminhtml>
     <phpunit>
