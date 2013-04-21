@@ -230,62 +230,6 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
     }
 
     /**
-     * Add the activation status column to the customer grid block.
-     *
-     * This is used from different events when displaying the block as well as
-     * during exporting the grid to CSV or XML.
-     *
-     * @param Mage_Adminhtml_Block_Customer_Grid $block
-     */
-    protected function _addActivationStatusColumn(Mage_Adminhtml_Block_Customer_Grid $block)
-    {
-        /** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
-        $helper = Mage::helper('customeractivation');
-
-        // Add the attribute as a column to the grid
-        $block->addColumnAfter(
-            'customer_activated',
-            array(
-                'header' => $helper->__('Customer Activated'),
-                'align' => 'center',
-                'width' => '80px',
-                'type' => 'options',
-                'options' => array(
-                    '0' => $helper->__('No'),
-                    '1' => $helper->__('Yes')
-                ),
-                'default' => '0',
-                'index' => 'customer_activated',
-                'renderer' => 'customeractivation/adminhtml_widget_grid_column_renderer_boolean'
-            ),
-            'customer_since'
-        );
-
-        // Set the new columns order.. otherwise our column would be the last one
-        $block->sortColumnsByOrder();
-    }
-
-    /**
-     * Add customer_activated attribute to grid.
-     *
-     * Thanks to Rouven Alexander Rieker <rouven.rieker@itabs.de> for the base code.
-     *
-     * @param Varien_Event_Observer $observer
-     */
-    public function coreBlockAbstractToHtmlBefore(Varien_Event_Observer $observer)
-    {
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED)) {
-            return;
-        }
-
-        /** @var $block Mage_Core_Block_Abstract */
-        $block = $observer->getEvent()->getBlock();
-        if ($block->getId() == 'customerGrid') {
-            $this->_addActivationStatusColumn($block);
-        }
-    }
-
-    /**
      * Add customer activation option to the mass action block.
      *
      * This can't be done during the block abstract e
@@ -374,9 +318,45 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
         $block = $observer->getBlock();
         if ($block->getType() === 'adminhtml/customer_grid') {
             $action = Mage::app()->getRequest()->getActionName();
-            if (in_array($action, array('exportCsv', 'exportXml'))) {
+            if (in_array($action, array('grid', 'index', 'exportCsv', 'exportXml'))) {
                 $this->_addActivationStatusColumn($block);
             }
         }
+    }
+
+    /**
+     * Add the activation status column to the customer grid block.
+     *
+     * This is used from different events when displaying the block as well as
+     * during exporting the grid to CSV or XML.
+     *
+     * @param Mage_Adminhtml_Block_Customer_Grid $block
+     */
+    protected function _addActivationStatusColumn(Mage_Adminhtml_Block_Customer_Grid $block)
+    {
+        /** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
+        $helper = Mage::helper('customeractivation');
+
+        // Add the attribute as a column to the grid
+        $block->addColumnAfter(
+            'customer_activated',
+            array(
+                'header' => $helper->__('Customer Activated'),
+                'align' => 'center',
+                'width' => '80px',
+                'type' => 'options',
+                'options' => array(
+                    '0' => $helper->__('No'),
+                    '1' => $helper->__('Yes')
+                ),
+                'default' => '0',
+                'index' => 'customer_activated',
+                'renderer' => 'customeractivation/adminhtml_widget_grid_column_renderer_boolean'
+            ),
+            'customer_since'
+        );
+
+        // Set the new columns order.. otherwise our column would be the last one
+        $block->sortColumnsByOrder();
     }
 }

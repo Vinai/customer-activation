@@ -105,19 +105,22 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
     }
 
     /**
+     *
+     * @param string $action
+     *
      * @test
      * @singleton admin/session
+     * @dataProvider activationStatusGridModificationsProvider
      */
-    public function activationStatusGridModifications()
+    public function activationStatusGridModifications($action)
     {
-        $this->dispatch('adminhtml/customer/index');
+        $this->dispatch('adminhtml/customer/' . $action);
 
-        $this->assertLayoutHandleLoaded('adminhtml_customer_index');
+        $this->assertLayoutHandleLoaded('adminhtml_customer_' . $action);
         $this->assertEventDispatched('eav_collection_abstract_load_before');
 
         // Check grid block is instantiated
-        /** @var Mage_Adminhtml_Block_Customer_Grid $gridBlock */
-        $gridBlock = $this->app()->getLayout()->getBlock('customer.grid');
+        $gridBlock = $this->_getCustomerGridBlock();
         $this->assertInternalType('object', $gridBlock, "Customer grid block not found");
         $this->assertInstanceOf('Mage_Adminhtml_Block_Customer_Grid', $gridBlock);
 
@@ -139,6 +142,33 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
         $selectAttributes = $property->getValue($collection);
 
         $this->assertArrayHasKey('customer_activated', $selectAttributes, "Customer activation attribute not part of collection");
+    }
+
+    /**
+     * @return Mage_Adminhtml_Block_Customer_Grid
+     */
+    protected function _getCustomerGridBlock()
+    {
+        foreach ($this->app()->getLayout()->getAllBlocks() as $block) {
+            if ($block->getType() === 'adminhtml/customer_grid') {
+                return $block;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Data Provider for activationStatusGridModifications test
+     * with adminhtml customer controller actions.
+     *
+     * @return array
+     */
+    public function activationStatusGridModificationsProvider()
+    {
+        return array(
+            array('index'),
+            array('grid'),
+        );
     }
 
     /**
