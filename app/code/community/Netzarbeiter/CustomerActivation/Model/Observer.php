@@ -245,33 +245,36 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
         /** @var $block Mage_Core_Block_Abstract */
         $block = $observer->getEvent()->getBlock();
         if ($block->getId() == 'customerGrid') {
-            /** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
-            $helper = Mage::helper('customeractivation');
-
-            // Add the attribute as a column to the grid
-            $block->addColumnAfter(
-                'customer_activated',
-                array(
-                    'header' => $helper->__('Customer Activated'),
-                    'align' => 'center',
-                    'width' => '80px',
-                    'type' => 'options',
-                    'options' => array(
-                        '0' => $helper->__('No'),
-                        '1' => $helper->__('Yes')
-                    ),
-                    'default' => '0',
-                    'index' => 'customer_activated',
-                    'renderer' => 'customeractivation/adminhtml_widget_grid_column_renderer_boolean'
-                ),
-                'customer_since'
-            );
-
-            // Set the new columns order.. otherwise our column would be the last one
-            $block->sortColumnsByOrder();
-
+            $this->_addActivationStatusColumn($block);
         }
+    }
 
+    protected function _addActivationStatusColumn(Mage_Adminhtml_Block_Customer_Grid $block)
+    {
+        /** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
+        $helper = Mage::helper('customeractivation');
+
+        // Add the attribute as a column to the grid
+        $block->addColumnAfter(
+            'customer_activated',
+            array(
+                'header' => $helper->__('Customer Activated'),
+                'align' => 'center',
+                'width' => '80px',
+                'type' => 'options',
+                'options' => array(
+                    '0' => $helper->__('No'),
+                    '1' => $helper->__('Yes')
+                ),
+                'default' => '0',
+                'index' => 'customer_activated',
+                'renderer' => 'customeractivation/adminhtml_widget_grid_column_renderer_boolean'
+            ),
+            'customer_since'
+        );
+
+        // Set the new columns order.. otherwise our column would be the last one
+        $block->sortColumnsByOrder();
     }
 
     /**
@@ -340,6 +343,32 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
         $collectionTypeId = $collection->getEntity()->getTypeId();
         if ($customerTypeId == $collectionTypeId) {
             $collection->addAttributeToSelect('customer_activated');
+
+        }
+    }
+
+    /**
+     * Add customer_activated column to CSV and XML exports
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function coreBlockAbstractPrepareLayoutAfter(Varien_Event_Observer $observer)
+    {
+        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED)) {
+            return;
+        }
+
+        // Cheap check to reduce overhead on product and category collections
+        if (Mage::app()->getRequest()->getControllerName() !== 'customer') {
+            return;
+        }
+
+        $block = $observer->getBlock();
+        if ($block->getType() === 'adminhtml/customer_grid') {
+            $action = Mage::app()->getRequest()->getActionName();
+            if (in_array($action, array('exportCsv', 'exportXml'))) {
+                $this->_addActivationStatusColumn($block);
+            }
         }
     }
 }
