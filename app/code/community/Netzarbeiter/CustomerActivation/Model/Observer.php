@@ -318,9 +318,9 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
         $block = $observer->getBlock();
         if ($block->getType() === 'adminhtml/customer_grid') {
             $action = Mage::app()->getRequest()->getActionName();
-            if (in_array($action, array('grid', 'index', 'exportCsv', 'exportXml'))) {
+            //if (in_array($action, array('grid', 'index', 'exportCsv', 'exportXml'))) {
                 $this->_addActivationStatusColumn($block);
-            }
+            //}
         }
     }
 
