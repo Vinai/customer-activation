@@ -62,16 +62,16 @@ Uninstallation Instructions
 
 Acknowledgements
 ----------------
-Thanks to Max for the updated french translation!
-Thanks to Junya Sano for the japanese translation!
-Thanks to SeL for the french translation and the bugfix!
-Thanks to SeL also for reporting the backend customer creation bug.
-Thanks to Toon van Veelen for the dutch translation!
-Thanks to Erik Hoeksma for the Greek translation!
-Thanks to PaulE for the integration in the admin grid for mass activation of customers!
-Thanks to Finn Snaterse for the inclusion in the Adminhtml Grid!
-Thanks to Aaron Kondziela for reminding me to clean up the admin customer edit page stuff!
-Thanks to Chiara Piatti for the italian translation!
+- Thanks to Max for the updated french translation!
+- Thanks to Junya Sano for the japanese translation!
+- Thanks to SeL for the french translation and the bugfix!
+- Thanks to SeL also for reporting the backend customer creation bug.
+- Thanks to Toon van Veelen for the dutch translation!
+- Thanks to Erik Hoeksma for the Greek translation!
+- Thanks to PaulE for the integration in the admin grid for mass activation of customers!
+- Thanks to Finn Snaterse for the inclusion in the Adminhtml Grid!
+- Thanks to Aaron Kondziela for reminding me to clean up the admin customer edit page stuff!
+- Thanks to Chiara Piatti for the italian translation!
 
 Support
 -------
@@ -94,4 +94,4 @@ Licence
 
 Copyright
 ---------
-(c) 2012 Vinai Kopp
+(c) 2013 Vinai Kopp
