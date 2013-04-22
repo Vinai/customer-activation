@@ -310,16 +310,19 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
             return;
         }
 
-        // Cheap check to reduce overhead on product and category collections
+        // Only add column to grids rendered by the adminhtml customer controller
         if (Mage::app()->getRequest()->getControllerName() !== 'customer') {
             return;
         }
 
         $block = $observer->getBlock();
         if ($block->getType() === 'adminhtml/customer_grid') {
-            $action = Mage::app()->getRequest()->getActionName();
+            // I don't think we need to limit applying the column by action
+            //$action = Mage::app()->getRequest()->getActionName();
             //if (in_array($action, array('grid', 'index', 'exportCsv', 'exportXml'))) {
+
                 $this->_addActivationStatusColumn($block);
+            
             //}
         }
     }
