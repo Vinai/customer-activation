@@ -22,3 +22,5 @@ app/locale/it_IT/template/email/netzarbeiter/customeractivation app/locale/it_IT
 app/locale/nl_NL/Netzarbeiter_CustomerActivation.csv app/locale/nl_NL/Netzarbeiter_CustomerActivation.csv
 
 app/locale/ja_JP/Netzarbeiter_CustomerActivation.csv app/locale/ja_JP/Netzarbeiter_CustomerActivation.csv
+
+app/locale/pt_BR/Netzarbeiter_CustomerActivation.csv app/locale/pt_BR/Netzarbeiter_CustomerActivation.csv
