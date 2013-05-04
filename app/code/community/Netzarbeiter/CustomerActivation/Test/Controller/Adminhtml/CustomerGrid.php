@@ -85,7 +85,9 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
         $responseBody = '';
         if (function_exists('set_exit_overload')) {
             try {
-                set_exit_overload(function() { return false; });
+                set_exit_overload(function () {
+                    return false;
+                });
                 ob_start();
                 $this->dispatch($route);
             } catch (Zend_Controller_Response_Exception $e) {
@@ -125,8 +127,8 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
         $this->assertInstanceOf('Mage_Adminhtml_Block_Customer_Grid', $gridBlock);
 
         // Check if customer_activation column is defined
-        $foundActivationColumn = $gridBlock->getColumn('customer_activated') !== false;
-        $this->assertTrue($foundActivationColumn, "Customer activation column not found in grid");
+        $foundActivationCol = $gridBlock->getColumn('customer_activated') !== false;
+        $this->assertTrue($foundActivationCol, "Customer activation column not found in grid");
 
         // Check mass action is defined
         /** @var Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract $massActionBlock */
@@ -141,7 +143,9 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
         $property->setAccessible(true);
         $selectAttributes = $property->getValue($collection);
 
-        $this->assertArrayHasKey('customer_activated', $selectAttributes, "Customer activation attribute not part of collection");
+        $this->assertArrayHasKey(
+            'customer_activated', $selectAttributes, "Customer activation attribute not part of collection"
+        );
     }
 
     /**
