@@ -1,0 +1,34 @@
+
+# One customer record is declared in the global.yaml shared fixture
+eav:
+  customer:
+
+    - entity_id: 1 # Activated Account (same as in global.yaml)
+      customer_activated: 1
+      email: test1@example.com
+      firstname: Jane1
+      group_id: 1
+      lastname: Doe1
+      password_hash: 098f6bcd4621d373cade4e832627b4f6 # md5(test)
+      store_id: 2
+      website_id: 2
+
+    - entity_id: 2 # Deactivated Account
+      customer_activated: 0
+      email: test2@example.com
+      firstname: Jane2
+      group_id: 1
+      lastname: Doe2
+      password_hash: 098f6bcd4621d373cade4e832627b4f6 # md5(test)
+      store_id: 2
+      website_id: 2
+
+    - entity_id: 3 # No attribute value for customer_activated
+      customer_activated: null
+      email: test3@example.com
+      firstname: Jon3
+      group_id: 1
+      lastname: Doe3
+      password_hash: 098f6bcd4621d373cade4e832627b4f6 # md5(test)
+      store_id: 2
+      website_id: 2

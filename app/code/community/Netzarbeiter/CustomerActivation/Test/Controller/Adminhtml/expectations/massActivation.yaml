@@ -1,0 +1,64 @@
+#
+# Netzarbeiter
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to the Open Software License (OSL 3.0)
+# that is bundled with this package in the file LICENSE.txt.
+# It is also available through the world-wide-web at this URL:
+# http://opensource.org/licenses/osl-3.0.php
+#
+# DISCLAIMER
+#
+# Do not edit or add to this file if you wish to upgrade this Module to
+# newer versions in the future.
+#
+# @category   Netzarbeiter
+# @package    Netzarbeiter_CustomerActivation
+# @copyright  Copyright (c) 2013 Vinai Kopp http://netzarbeiter.com
+# @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+#
+
+#
+# Test case expectations
+#
+
+#
+# Initial customer activation states
+# customer_id | customer_activated
+#      1      |         1
+#      2      |         0
+#      3      |        null
+#
+
+initial-status-1:
+  customer_activated: 1
+initial-status-2:
+  customer_activated: 0
+initial-status-3:
+  customer_activated: null
+
+1,2,3-1,2,3-1: # Test Customer Ids, Post Customer ids, Status
+  customer1: 1
+  customer2: 1
+  customer3: 1
+
+1,2,3-1,2,3-0:
+  customer1: 0
+  customer2: 0
+  customer3: 0
+
+1,2,3-1,2-1:
+  customer1: 1
+  customer2: 1
+  customer3: 0
+
+1,2,3-1-0:
+  customer1: 0
+  customer2: 0
+  customer3: 0
+
+1,2,3-3-1:
+  customer1: 1
+  customer2: 0
+  customer3: 1
