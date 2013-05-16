@@ -30,11 +30,8 @@ class Netzarbeiter_CustomerActivation_AdminController extends Mage_Adminhtml_Con
         } else {
             $activationStatus = $this->getRequest()->getParam('customer_activated');
             try {
-                foreach ($customerIds as $customerId) {
-                    /** @var $model Mage_Customer_Model_Customer */
-                    $model = Mage::getModel('customer/customer')->load($customerId);
-                    $model->setCustomerActivated($activationStatus)->save();
-                }
+                Mage::getResourceModel('customeractivation/customer')
+                    ->massSetActivationStatus($customerIds, $activationStatus);
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('customeractivation')->__(
