@@ -96,6 +96,19 @@ tables:
       customer_group_code: Retailer
       tax_class_id: 3
 
+eav:
+  customer:
+
+    - entity_id: 1 # Activated Account
+      customer_activated: 1
+      email: test1@example.com
+      firstname: Jane1
+      group_id: 1
+      lastname: Doe1
+      password_hash: 098f6bcd4621d373cade4e832627b4f6 # md5(test)
+      store_id: 2
+      website_id: 2
+
 config:
   default/customer/customeractivation/disable_ext: 0
   default/customer/customeractivation/always_active_in_admin: 0
