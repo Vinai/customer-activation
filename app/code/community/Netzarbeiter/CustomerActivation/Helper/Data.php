@@ -112,7 +112,7 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
                             'customer' => $customer,
                             'shipping' => $customer->getPrimaryShippingAddress(),
                             'billing' => $customer->getPrimaryBillingAddress(),
-                            'store' => Mage::app()->getStore($storeId),
+                            'store' => $this->getCustomerStoreId($customer),
                         )
                     );
         }
