@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.4.5 2013-05-22
+- Bugfix: enable usage default admin notification email template
+
 0.4.4 2013-04-21
 - Minor new feature: export to CSV or XML now contains the activation status column
 
