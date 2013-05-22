@@ -39,7 +39,8 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
         $storeId = $this->getCustomerStoreId($customer);
         if (Mage::getStoreConfig(self::XML_PATH_ALERT_ADMIN, $storeId)) {
             $to = $this->_getEmails(self::XML_PATH_EMAIL_ADMIN_NOTIFICATION, $storeId);
-            $this->_sendNotificationEmail($to, $customer, self::XML_PATH_EMAIL_ADMIN_NOTIFICATION_TEMPLATE);
+            $storeId = Mage_Core_Model_App::ADMIN_STORE_ID;
+            $this->_sendNotificationEmail($to, $customer, self::XML_PATH_EMAIL_ADMIN_NOTIFICATION_TEMPLATE, $storeId);
         }
         return $this;
     }
@@ -68,13 +69,16 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
      * @param array|string $to
      * @param Mage_Customer_Model_Customer $customer
      * @param string $templateConfigPath
+     * @param int $storeId
      * @return Netzarbeiter_CustomerActivation_Helper_Data
      */
-    protected function _sendNotificationEmail($to, $customer, $templateConfigPath)
+    protected function _sendNotificationEmail($to, $customer, $templateConfigPath, $storeId = null)
     {
         if (!$to) return;
 
-        $storeId = $this->getCustomerStoreId($customer);
+        if (is_null($storeId)) {
+            $storeId = $this->getCustomerStoreId($customer);
+        }
 
         $translate = Mage::getSingleton('core/translate');
         /* @var $translate Mage_Core_Model_Translate */
