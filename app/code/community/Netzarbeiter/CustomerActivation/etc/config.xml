@@ -136,8 +136,7 @@
                 <always_active_in_admin>1</always_active_in_admin>
                 <alert_admin>1</alert_admin>
                 <admin_email></admin_email>
-                <registration_admin_template>customer_customeractivation_registration_admin_template
-                </registration_admin_template>
+                <registration_admin_template>customer_customeractivation_registration_admin_template</registration_admin_template>
                 <alert_customer>0</alert_customer>
                 <activation_template>customer_customeractivation_activation_template</activation_template>
                 <activation_status_default>0</activation_status_default>
