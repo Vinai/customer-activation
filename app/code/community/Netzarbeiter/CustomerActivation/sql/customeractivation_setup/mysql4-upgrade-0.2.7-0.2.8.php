@@ -23,7 +23,7 @@ $installer = $this;
 $installer->startSetup();
 
 /*
- * Add required information for Magento 1.4.2
+ * Add required information for Magento 1.4.2 and newer
  */
 if (version_compare(Mage::getVersion(), '1.4.2', '>=')) {
     Mage::getSingleton('eav/config')
@@ -31,6 +31,5 @@ if (version_compare(Mage::getVersion(), '1.4.2', '>=')) {
             ->setData('used_in_forms', array('adminhtml_customer'))
             ->save();
 }
-
 
 $installer->endSetup();
