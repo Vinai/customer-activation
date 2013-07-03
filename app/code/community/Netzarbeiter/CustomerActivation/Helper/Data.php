@@ -112,7 +112,11 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
                             'customer' => $customer,
                             'shipping' => $customer->getPrimaryShippingAddress(),
                             'billing' => $customer->getPrimaryBillingAddress(),
-                            'store' => $this->getCustomerStoreId($customer),
+                            'store' => Mage::app()->getStore(
+                                // In case of admin store emails, $storeId is set to 0.
+                                // We want 'store' to always be set to the customers store.
+                                $this->getCustomerStoreId($customer)
+                            ),
                         )
                     );
         }
