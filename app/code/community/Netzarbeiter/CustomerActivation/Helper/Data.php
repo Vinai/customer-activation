@@ -28,6 +28,10 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
     const XML_PATH_DEFAULT_STATUS_BY_GROUP = 'customer/customeractivation/require_activation_for_specific_groups';
     const XML_PATH_DEFAULT_STATUS_GROUPS = 'customer/customeractivation/require_activation_groups';
 
+    const STATUS_ACTIVATE_WITHOUT_EMAIL = 1;
+    const STATUS_ACTIVATE_WITH_EMAIL = 2;
+    const STATUS_DEACTIVATE = 0;
+
     protected $_origEmailDesignConfig;
 
     /**
