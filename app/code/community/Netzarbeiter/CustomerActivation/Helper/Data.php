@@ -202,6 +202,11 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
                     $storeId = $store->getId();
                 }
             }
+            // In case the website_id is not yet set on the customer, and the
+            // current store is a frontend store, use the current store ID
+            if (!$storeId && !Mage::app()->getStore()->isAdmin()) {
+                $storeId = Mage::app()->getStore()->getId();
+            }
         }
         return $storeId;
     }
