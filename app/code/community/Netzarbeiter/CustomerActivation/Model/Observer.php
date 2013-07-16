@@ -249,6 +249,10 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
             /** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
             $helper = Mage::helper('customeractivation');
 
+            $noEmail = Netzarbeiter_CustomerActivation_Helper_Data::STATUS_ACTIVATE_WITHOUT_EMAIL;
+            $withEmail = Netzarbeiter_CustomerActivation_Helper_Data::STATUS_ACTIVATE_WITH_EMAIL;
+            $deactivate = Netzarbeiter_CustomerActivation_Helper_Data::STATUS_DEACTIVATE;
+
             $massBlock->addItem(
                 'customer_activated',
                 array(
@@ -261,8 +265,9 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
                             'class' => 'required-entry',
                             'label' => $helper->__('Customer Activated'),
                             'values' => array(
-                                '1' => $helper->__('Yes'),
-                                '0' => $helper->__('No')
+                                $noEmail => $helper->__('Yes (No Notification)'),
+                                $withEmail => $helper->__('Yes (With Notification)'),
+                                $deactivate => $helper->__('No')
                             )
                         )
                     )
