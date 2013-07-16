@@ -28,6 +28,8 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
     const XML_PATH_DEFAULT_STATUS_BY_GROUP = 'customer/customeractivation/require_activation_for_specific_groups';
     const XML_PATH_DEFAULT_STATUS_GROUPS = 'customer/customeractivation/require_activation_groups';
 
+    protected $_origEmailDesignConfig;
+
     /**
      * Send Admin a notification whenever a new customer account is registered
      *
@@ -80,12 +82,10 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
             $storeId = $this->getCustomerStoreId($customer);
         }
 
-        $translate = Mage::getSingleton('core/translate');
-        /* @var $translate Mage_Core_Model_Translate */
-        $translate->setTranslateInline(false);
+        $translate = Mage::getSingleton('core/translate')
+            ->setTranslateInline(false);
 
         $mailTemplate = Mage::getModel('core/email_template');
-        /* @var $mailTemplate Mage_Core_Model_Email_Template */
 
         $template = Mage::getStoreConfig($templateConfigPath, $storeId);
 
@@ -94,35 +94,74 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
             if (is_array($recipient)) {
                 $sendTo[] = $recipient;
             } else {
-                $sendTo[] = array(
-                    'email' => $recipient,
-                    'name' => null,
-                );
+                $sendTo[] = array('email' => $recipient, 'name' => null);
             }
         }
 
+        $this->_setEmailDesignConfig($mailTemplate, $storeId);
+
         foreach ($sendTo as $recipient) {
-            $mailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
-                    ->sendTransactional(
-                        $template,
-                        Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_REGISTER_EMAIL_IDENTITY, $storeId),
-                        $recipient['email'],
-                        $recipient['name'],
-                        array(
-                            'customer' => $customer,
-                            'shipping' => $customer->getPrimaryShippingAddress(),
-                            'billing' => $customer->getPrimaryBillingAddress(),
-                            'store' => Mage::app()->getStore(
-                                // In case of admin store emails, $storeId is set to 0.
-                                // We want 'store' to always be set to the customers store.
-                                $this->getCustomerStoreId($customer)
-                            ),
-                        )
-                    );
+            $mailTemplate->sendTransactional(
+                    $template,
+                    Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_REGISTER_EMAIL_IDENTITY, $storeId),
+                    $recipient['email'],
+                    $recipient['name'],
+                    array(
+                        'customer' => $customer,
+                        'shipping' => $customer->getPrimaryShippingAddress(),
+                        'billing' => $customer->getPrimaryBillingAddress(),
+                        'store' => Mage::app()->getStore(
+                            // In case of admin store emails, $storeId is set to 0.
+                            // We want 'store' to always be set to the customers store.
+                            $this->getCustomerStoreId($customer)
+                        ),
+                    )
+                );
         }
+
+        $this->_revertEmailDesignConfig($mailTemplate);
 
         $translate->setTranslateInline(true);
 
+        return $this;
+    }
+
+    /**
+     * Keep the original design config if it is set so it can be reset later
+     *
+     * @param Mage_Core_Model_Email_Template $mailTemplate
+     * @param int $storeId
+     * @return $this
+     */
+    protected function _setEmailDesignConfig(Mage_Core_Model_Email_Template $mailTemplate, $storeId)
+    {
+        if ($this->_origEmailDesignConfig = $mailTemplate->getDesignConfig()) {
+            $this->_origEmailDesignConfig = $this->_origEmailDesignConfig->getData();
+        } else {
+            $this->_origEmailDesignConfig = array(
+                'area' => Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'frontend',
+                'store' => Mage::app()->getStore()->getId()
+            );
+        }
+
+        $mailTemplate->setDesignConfig(array(
+                'area' => Mage::app()->getStore($storeId)->isAdmin() ? 'adminhtml' : 'frontend',
+                'store' => $storeId)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Reset the design configuration so emails sent later during
+     * the request will use the right store config
+     *
+     * @param Mage_Core_Model_Email_Template $mailTemplate
+     * @return $this
+     */
+    protected function _revertEmailDesignConfig(Mage_Core_Model_Email_Template $mailTemplate)
+    {
+        $mailTemplate->setDesignConfig($this->_origEmailDesignConfig);
         return $this;
     }
 
