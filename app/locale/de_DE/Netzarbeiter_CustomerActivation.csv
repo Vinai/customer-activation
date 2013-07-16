@@ -19,6 +19,8 @@
 "Send the Admin notification email even if new accounts are activated by default","Admin Benachrichtigen auch wenn das Konto automatisch aktiviert wurde"
 "Customer Activated","Konto aktiviert"
 "Yes","Ja"
+"Yes (With Notification)","Ja (Sende Email)"
+"Yes (No Notification)","Ja (Ohne Email)"
 "No","Nein"
 "Please select item(s)","Bitte wählen Sie Datensätze aus"
 "Total of %d record(s) were successfully saved","Es wurden %d Datensätze erfolgreich gespeichert"
