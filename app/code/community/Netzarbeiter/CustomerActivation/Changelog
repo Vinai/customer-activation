@@ -1,7 +1,9 @@
 Changelog for Netzarbeiter_CustomerActivation
 
 0.4.7 2013-09-23
-- Fix Store Variable in Email Templates
+- Fix store variable in email templates
+- Fix mass activation email notifications
+ - 
 
 0.4.6 2013-05-24
 - Backward compatibility fix for Magento older then 1.7
