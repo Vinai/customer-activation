@@ -17,7 +17,7 @@
  * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abstract
+class Netzarbeiter_CustomerActivation_Model_Observer
 {
     const XML_PATH_MODULE_DISABLED = 'customer/customeractivation/disable_ext';
 
@@ -81,10 +81,13 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
         }
 
         if (!$customer->getId()) {
-            $groupId = $customer->getGroupId();
-            $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
-            $customer->setCustomerActivated($defaultStatus);
             $customer->setCustomerActivationNewAccount(true);
+            if (! (Mage::app()->getStore()->isAdmin() && $this->_checkControllerAction('customer', 'save'))) {
+                // Do not set the default status on the customer edit save action
+                $groupId = $customer->getGroupId();
+                $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
+                $customer->setCustomerActivated($defaultStatus);
+            }
         }
     }
 
@@ -227,6 +230,19 @@ class Netzarbeiter_CustomerActivation_Model_Observer extends Mage_Core_Model_Abs
             return true;
         }
         return false;
+    }
+
+    /**
+     * Check the current controller and action match the passed names
+     *
+     * @param string $controller
+     * @param string $action
+     * @return bool
+     */
+    protected function _checkControllerAction($controller, $action)
+    {
+        $req = Mage::app()->getRequest();
+        return $this->_checkRequestRoute($req->getModuleName(), $controller, $action);
     }
 
     /**
