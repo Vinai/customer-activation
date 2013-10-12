@@ -1,7 +1,7 @@
 <?php
 
 
-class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_AbstractControllerTest
+class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_AbstractController
     extends EcomDev_PHPUnit_Test_Case_Controller
 {
     /**

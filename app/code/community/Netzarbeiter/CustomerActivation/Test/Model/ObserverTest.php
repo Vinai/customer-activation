@@ -26,7 +26,7 @@
  * @loadSharedFixture global.yaml
  * @doNotIndexAll
  */
-class Netzarbeiter_CustomerActivation_Test_Model_Observer extends EcomDev_PHPUnit_Test_Case
+class Netzarbeiter_CustomerActivation_Test_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case
 {
     /**
      * @var Mage_Core_Model_Abstract

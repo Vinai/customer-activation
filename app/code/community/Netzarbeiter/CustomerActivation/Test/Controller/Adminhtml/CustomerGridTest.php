@@ -1,7 +1,7 @@
 <?php
 
-class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGrid
-    extends Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_AbstractControllerTest
+class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGridTest
+    extends Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_AbstractController
 {
     /**
      * Requires phpunit/test_helpers to be installed so exit() can be overloaded.

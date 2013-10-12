@@ -6,8 +6,8 @@
  * @loadSharedFixture global.yaml
  * @doNotIndexAll
  */
-class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_AdminController
-    extends Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_AbstractControllerTest
+class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_AdminControllerTest
+    extends Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_AbstractController
 {
     /**
      * Force a customer customer_activation attribute to be a specific value (in case of null remove record)
