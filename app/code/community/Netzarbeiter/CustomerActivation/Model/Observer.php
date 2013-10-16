@@ -47,7 +47,9 @@ class Netzarbeiter_CustomerActivation_Model_Observer
             /*
              * Fake the old logout() method without deleting the session and all messages
              */
-            $session->setCustomer(Mage::getModel('customer/customer'))->setId(null);
+            $session->setCustomer(Mage::getModel('customer/customer'))
+                ->setId(null)
+                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
 
             if ($this->_checkRequestRoute('customer', 'account', 'createpost')) {
                 /*
