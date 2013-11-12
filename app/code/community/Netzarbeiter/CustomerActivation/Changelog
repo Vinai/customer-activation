@@ -1,5 +1,9 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.4.8 2013-11-12
+- Fix de-association of selected default addresses on mass updates
+- Only send notifications to customers whos status actually changed during a mass update 
+
 0.4.7 2013-09-23
 - Fix store variable in email templates
 - Fix mass activation email notifications
