@@ -79,7 +79,7 @@ class Netzarbeiter_CustomerActivation_Model_Resource_Customer
                 $this->_getWriteAdapter()->insertMultiple($table, $rows);
             }
         }
-        return $this;
+        return $changeIds;
     }
 
     /**

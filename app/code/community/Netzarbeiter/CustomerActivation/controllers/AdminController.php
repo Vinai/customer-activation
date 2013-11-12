@@ -34,19 +34,19 @@ class Netzarbeiter_CustomerActivation_AdminController extends Mage_Adminhtml_Con
             $paramValue = $this->getRequest()->getParam('customer_activated');
 
             try {
-                Mage::getResourceModel('customeractivation/customer')
+                $updatedCustomerIds = Mage::getResourceModel('customeractivation/customer')
                     ->massSetActivationStatus(
                         $customerIds, $this->_shouldSetToActivated($paramValue)
                     );
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('customeractivation')->__(
-                        'Total of %d record(s) were successfully saved', count($customerIds)
+                        'Total of %d record(s) were successfully saved', count($updatedCustomerIds)
                     )
                 );
 
                 if ($this->_shouldSendActivationNotification($paramValue)) {
-                    $this->_sendActivationNotificationEmails($customerIds);
+                    $this->_sendActivationNotificationEmails($updatedCustomerIds);
                 }
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
