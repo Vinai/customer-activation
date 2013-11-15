@@ -1,5 +1,9 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.4.9 2013-11-15
+- Implement workaround for versions of Magento where core/template::getDesignConfig
+  is protected.
+
 0.4.8 2013-11-12
 - Fix de-association of selected default addresses on mass updates
 - Only send notifications to customers whos status actually changed during a mass update 
