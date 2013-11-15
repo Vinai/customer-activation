@@ -139,7 +139,12 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
      */
     protected function _setEmailDesignConfig(Mage_Core_Model_Email_Template $mailTemplate, $storeId)
     {
-        if ($this->_origEmailDesignConfig = $mailTemplate->getDesignConfig()) {
+        // Workaround for bug in Mage_Core_Model_Template
+        $method = new ReflectionMethod($mailTemplate, 'getDesignConfig');
+        if ($method->isProtected()) {
+            $method->setAccessible(true);
+        }
+        if ($this->_origEmailDesignConfig = $method->invoke($mailTemplate)) {
             $this->_origEmailDesignConfig = $this->_origEmailDesignConfig->getData();
         } else {
             $this->_origEmailDesignConfig = array(
