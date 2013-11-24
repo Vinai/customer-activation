@@ -225,11 +225,14 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
      */
     public function getDefaultActivationStatus($groupId, $storeId)
     {
-        if (Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS_BY_GROUP, $storeId)) {
+        $defaultIsActive = Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS, $storeId);
+        $activateByGroup = Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS_BY_GROUP, $storeId);
+        
+        if (! $defaultIsActive && $activateByGroup) {
             $notActiveGroups = explode(',', Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS_GROUPS, $storeId));
             $isActive = in_array($groupId, $notActiveGroups) ? false : true;
         } else {
-            $isActive = Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS, $storeId);
+            $isActive = $defaultIsActive;
         }
 
         return $isActive;
