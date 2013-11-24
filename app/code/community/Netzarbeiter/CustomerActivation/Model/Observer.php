@@ -85,10 +85,20 @@ class Netzarbeiter_CustomerActivation_Model_Observer
         if (!$customer->getId()) {
             $customer->setCustomerActivationNewAccount(true);
             if (! (Mage::app()->getStore()->isAdmin() && $this->_checkControllerAction('customer', 'save'))) {
-                // Do not set the default status on the customer edit save action
+                // Do not set the default status on the admin customer edit save action
                 $groupId = $customer->getGroupId();
                 $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
                 $customer->setCustomerActivated($defaultStatus);
+                
+                if (! $defaultStatus) {
+                    // Suppress the "enter your billing address for VAT validation" message.
+                    // This setting will not be saved, its just for this request.
+                    if (Mage::helper('customer/address')->isVatValidationEnabled($storeId)) {
+                        Mage::app()->getStore($storeId)->setConfig(
+                            Mage_Customer_Helper_Address::XML_PATH_VAT_VALIDATION_ENABLED, false
+                        );
+                    }
+                }
             }
         }
     }
