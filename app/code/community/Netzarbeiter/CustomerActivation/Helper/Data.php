@@ -139,14 +139,27 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
      */
     protected function _setEmailDesignConfig(Mage_Core_Model_Email_Template $mailTemplate, $storeId)
     {
-        // Workaround for bug in Mage_Core_Model_Template
-        $method = new ReflectionMethod($mailTemplate, 'getDesignConfig');
-        if ($method->isProtected()) {
-            $method->setAccessible(true);
+        $this->_origEmailDesignConfig = null;
+
+        // Workaround for bug in Mage_Core_Model_Template where getDesignConfig is protected
+        if (is_callable(array($mailTemplate, 'getDesignConfig'))) {
+            // Use standard way to fetch the current design config (if possible)
+            $this->_origEmailDesignConfig = $mailTemplate->getDesignConfig();
+            
+        } elseif (version_compare(phpversion(), '5.3.2', '>=')) {
+            // ReflectionMethod::setAccessible() is only available in 5.3.2 or newer
+            $method = new ReflectionMethod($mailTemplate, 'getDesignConfig');
+            if ($method->isProtected()) {
+                $method->setAccessible(true);
+            }
+            if ($this->_origEmailDesignConfig = $method->invoke($mailTemplate)) {
+                $this->_origEmailDesignConfig = $this->_origEmailDesignConfig->getData();
+            }
         }
-        if ($this->_origEmailDesignConfig = $method->invoke($mailTemplate)) {
-            $this->_origEmailDesignConfig = $this->_origEmailDesignConfig->getData();
-        } else {
+
+        // Fallback if neither of the previous versions is available or if 
+        // there was no design configuration set on the mail template instance
+        if (! $this->_origEmailDesignConfig) {
             $this->_origEmailDesignConfig = array(
                 'area' => Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'frontend',
                 'store' => Mage::app()->getStore()->getId()
