@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.5.1 2013-12-20
+- Remove dependency on PHP 5.3.2 or newer. Should work down to 5.2 again.
+
 0.5.0 2013-11-24
 - Hide post registration message to enter address for VAT validation for deactivated accounts.
 - Correct handling if default activation status is true and also activate by group is true.

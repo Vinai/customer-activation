@@ -21,7 +21,7 @@
 <config>
     <modules>
         <Netzarbeiter_CustomerActivation>
-            <version>0.5.0</version>
+            <version>0.5.1</version>
         </Netzarbeiter_CustomerActivation>
     </modules>
     <global>
