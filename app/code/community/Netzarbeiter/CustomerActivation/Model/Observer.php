@@ -93,10 +93,15 @@ class Netzarbeiter_CustomerActivation_Model_Observer
                 if (! $defaultStatus) {
                     // Suppress the "enter your billing address for VAT validation" message.
                     // This setting will not be saved, its just for this request.
-                    if (Mage::helper('customer/address')->isVatValidationEnabled($storeId)) {
-                        Mage::app()->getStore($storeId)->setConfig(
-                            Mage_Customer_Helper_Address::XML_PATH_VAT_VALIDATION_ENABLED, false
-                        );
+                    $helper = Mage::helper('customer/address');
+                    if (method_exists($helper, 'isVatValidationEnabled')) {
+                        if (is_callable(array($helper, 'isVatValidationEnabled'))) {
+                            if (Mage::helper('customer/address')->isVatValidationEnabled($storeId)) {
+                                Mage::app()->getStore($storeId)->setConfig(
+                                    Mage_Customer_Helper_Address::XML_PATH_VAT_VALIDATION_ENABLED, false
+                                );
+                            }
+                        }
                     }
                 }
             }
