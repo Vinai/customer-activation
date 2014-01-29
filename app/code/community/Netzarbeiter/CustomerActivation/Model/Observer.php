@@ -400,4 +400,21 @@ class Netzarbeiter_CustomerActivation_Model_Observer
         // Set the new columns order.. otherwise our column would be the last one
         $block->sortColumnsByOrder();
     }
+
+    /**
+     * In Magento 1.6 customer where logged in automatically by the lost password functionality
+     * In Magento 1.7 and newer this was changed.
+     * 
+     * This fix removes the customer id from the customer/session in effect login him out again.
+     * 
+     * @param Varien_Event_Observer $observer
+     */
+    public function controllerActionPostdispatchCustomerAccountResetPasswordPost(Varien_Event_Observer $observer)
+    {
+        if (version_compare(Mage::getVersion(), '1.7', '<')) {
+            $session = Mage::getSingleton('customer/session');
+            $session->setCustomerId(null)->setId(null);
+        }
+            
+    }
 }

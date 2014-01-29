@@ -118,6 +118,15 @@
                     </customeractivation>
                 </observers>
             </sales_convert_quote_address_to_order>
+            <controller_action_postdispatch_customer_account_resetPasswordPost>
+                <observers>
+                    <customeractivation>
+                        <type>singleton</type>
+                        <class>customeractivation/observer</class>
+                        <method>controllerActionPostdispatchCustomerAccountResetPasswordPost</method>
+                    </customeractivation>
+                </observers>
+            </controller_action_postdispatch_customer_account_resetPasswordPost>
         </events>
         <translate>
             <modules>
