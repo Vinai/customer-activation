@@ -402,18 +402,25 @@ class Netzarbeiter_CustomerActivation_Model_Observer
     }
 
     /**
-     * In Magento 1.6 customer where logged in automatically by the lost password functionality
-     * In Magento 1.7 and newer this was changed.
+     * Reportedly on Magento 1.6 customers are logged in automatically 
+     * by the lost password functionality (must be some customization actually).
      * 
-     * This fix removes the customer id from the customer/session in effect login him out again.
+     * This observer method removes the customer id from the customer/session,
+     * in effect causing a logout just in case.
      * 
      * @param Varien_Event_Observer $observer
      */
     public function controllerActionPostdispatchCustomerAccountResetPasswordPost(Varien_Event_Observer $observer)
     {
+        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED)) {
+            return;
+        }
         if (version_compare(Mage::getVersion(), '1.7', '<')) {
             $session = Mage::getSingleton('customer/session');
-            $session->setCustomerId(null)->setId(null);
+            $customer = $session->getCustomer();
+            if (!$customer->getCustomerActivated() && $session->isLoggedIn()) {
+                $session->setCustomerId(null)->setId(null);
+            }
         }
             
     }
