@@ -114,7 +114,7 @@
                     <customeractivation>
                         <type>singleton</type>
                         <class>customeractivation/observer</class>
-                        <method>salesCovertQuoteAddressToOrder</method>
+                        <method>salesConvertQuoteAddressToOrder</method>
                     </customeractivation>
                 </observers>
             </sales_convert_quote_address_to_order>

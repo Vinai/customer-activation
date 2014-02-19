@@ -150,7 +150,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
         }
     }
 
-    public function salesCovertQuoteAddressToOrder(Varien_Event_Observer $observer)
+    public function salesConvertQuoteAddressToOrder(Varien_Event_Observer $observer)
     {
         /** @var $address Mage_Sales_Model_Quote_Address */
         $address = $observer->getEvent()->getAddress();
