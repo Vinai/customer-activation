@@ -45,6 +45,9 @@ Installation Instructions
 2. Clear the cache, logout from the admin panel and then login again.
 3. Configure and activate the extension under System - Configuration - Customer Configuration - Customer Activation
 
+If you have existing customers prior to installing the extension, they will be deactivated by default.  
+You can easily and quickly activate all existing accounts using the mass action found above the customer backend grid.
+
 Uninstallation Instructions
 ---------------------------
 1. Delete the file app/etc/modules/Netzarbeiter_CustomerActivation.xml
@@ -94,4 +97,4 @@ Licence
 
 Copyright
 ---------
-(c) 2013 Vinai Kopp
+(c) 2014 Vinai Kopp
