@@ -1,0 +1,41 @@
+<!--@subject Su cuenta ha sido activada, {{var customer.getName()}} @-->
+
+<style type="text/css">
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+</style>
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=""}}"><img src="{{skin url="images/logo_email.gif" _area='frontend'}}" alt="Magento"  style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+								<strong>Hola {{var customer.name}}</strong>,<br/>
+								su cuenta ha sido activada.<br/>
+								Para iniciar sesión visita nuestro sitio clickando en el siguiente link: <a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">Login</a> or
+								<a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">Mi cuenta</a> en la parte superior de cada página, a continuación, introduzca su dirección de correo electrónico y la contraseña.
+                            </p>
+
+                            <p>Si usted tiene alguna pregunta acerca de su cuenta o cualquier otro asunto, por favor no dude en ponerse en contacto con nosotros en <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> o por teléfono al {{config path='general/store_information/phone'}}.</p>
+                            <p>Gracias de nuevo!</p>
+
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>
