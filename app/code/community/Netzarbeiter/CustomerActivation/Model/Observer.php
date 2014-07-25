@@ -19,8 +19,6 @@
 
 class Netzarbeiter_CustomerActivation_Model_Observer
 {
-    const XML_PATH_MODULE_DISABLED = 'customer/customeractivation/disable_ext';
-
     const XML_PATH_ALWAYS_NOTIFY_ADMIN = 'customer/customeractivation/always_send_admin_email';
 
     /**
@@ -32,7 +30,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      */
     public function customerLogin($observer)
     {
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED)) {
+        $helper = Mage::helper('customeractivation');
+        if (! $helper->isModuleActive()) {
             return;
         }
 
@@ -55,14 +54,14 @@ class Netzarbeiter_CustomerActivation_Model_Observer
                 /*
                  * If this is a regular registration, simply display message
                  */
-                $message = Mage::helper('customeractivation')->__('Please wait for your account to be activated');
+                $message = $helper->__('Please wait for your account to be activated');
 
                 $session->addSuccess($message);
             } else {
                 /*
                  * All other types of login
                  */
-                Mage::throwException(Mage::helper('customeractivation')->__('This account is not activated.'));
+                Mage::throwException($helper->__('This account is not activated.'));
             }
         }
     }
@@ -76,9 +75,10 @@ class Netzarbeiter_CustomerActivation_Model_Observer
     {
         $customer = $observer->getEvent()->getCustomer();
 
-        $storeId = Mage::helper('customeractivation')->getCustomerStoreId($customer);
+        $helper = Mage::helper('customeractivation');
+        $storeId = $helper->getCustomerStoreId($customer);
 
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, $storeId)) {
+        if (! $helper->isModuleActive($storeId)) {
             return;
         }
 
@@ -87,7 +87,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
             if (! (Mage::app()->getStore()->isAdmin() && $this->_checkControllerAction('customer', 'save'))) {
                 // Do not set the default status on the admin customer edit save action
                 $groupId = $customer->getGroupId();
-                $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
+                $defaultStatus = $helper->getDefaultActivationStatus($groupId, $storeId);
                 $customer->setCustomerActivated($defaultStatus);
                 
                 if (! $defaultStatus) {
@@ -118,21 +118,22 @@ class Netzarbeiter_CustomerActivation_Model_Observer
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getEvent()->getCustomer();
 
-        $storeId = Mage::helper('customeractivation')->getCustomerStoreId($customer);
+        $helper = Mage::helper('customeractivation');
+        $storeId = $helper->getCustomerStoreId($customer);
 
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, $storeId)) {
+        if (! $helper->isModuleActive($storeId)) {
             return;
         }
 
         $groupId = $customer->getGroupId();
-        $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
+        $defaultStatus = $helper->getDefaultActivationStatus($groupId, $storeId);
 
         try {
             if (Mage::app()->getStore()->isAdmin()) {
                 if (!$customer->getOrigData('customer_activated') && $customer->getCustomerActivated()) {
                     // Send customer email only if it isn't a new account and it isn't activated by default
                     if (!($customer->getCustomerActivationNewAccount() && $defaultStatus)) {
-                        Mage::helper('customeractivation')->sendCustomerNotificationEmail($customer);
+                        $helper->sendCustomerNotificationEmail($customer);
                     }
                 }
             } else {
@@ -140,7 +141,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
                     // Only notify the admin if the default is deactivated or the "always notify" flag is configured
                     $alwaysNotify = Mage::getStoreConfig(self::XML_PATH_ALWAYS_NOTIFY_ADMIN, $storeId);
                     if (!$defaultStatus || $alwaysNotify) {
-                        Mage::helper('customeractivation')->sendAdminNotificationEmail($customer);
+                        $helper->sendAdminNotificationEmail($customer);
                     }
                 }
                 $customer->setCustomerActivationNewAccount(false);
@@ -176,7 +177,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      */
     protected function _abortCheckoutRegistration(Mage_Sales_Model_Quote $quote)
     {
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, $quote->getStoreId())) {
+        $helper = Mage::helper('customeractivation');
+        if (! $helper->isModuleActive($quote->getStoreId())) {
             return;
         }
 
@@ -194,7 +196,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
                 // Todo: merge guest quote to customer quote and save customer quote, but don't log customer in
 
                 // Add message
-                $message = Mage::helper('customeractivation')->__(
+                $message = $helper->__(
                     'Please wait for your account to be activated, then log in and continue with the checkout'
                 );
                 Mage::getSingleton('core/session')->addSuccess($message);
@@ -316,7 +318,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      */
     public function eavCollectionAbstractLoadBefore(Varien_Event_Observer $observer)
     {
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED)) {
+        if (! Mage::helper('customeractivation')->isModuleActive()) {
             return;
         }
 
@@ -344,7 +346,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      */
     public function coreBlockAbstractPrepareLayoutAfter(Varien_Event_Observer $observer)
     {
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED)) {
+        if (! Mage::helper('customeractivation')->isModuleActive()) {
             return;
         }
 
@@ -412,7 +414,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      */
     public function controllerActionPostdispatchCustomerAccountResetPasswordPost(Varien_Event_Observer $observer)
     {
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED)) {
+        if (! Mage::helper('customeractivation')->isModuleActive()) {
             return;
         }
         if (version_compare(Mage::getVersion(), '1.7', '<')) {
