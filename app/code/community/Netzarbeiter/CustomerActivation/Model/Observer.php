@@ -222,7 +222,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
     }
 
     /**
-     * Return true if the reqest is made via the api
+     * Return true if the request is made via the api
      *
      * @return boolean
      */
@@ -267,7 +267,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
     /**
      * Add customer activation option to the mass action block.
      *
-     * This can't be done during the block abstract e
+     * This can't be done during the block abstract event
      *
      * @param Varien_Event_Observer $observer
      */
