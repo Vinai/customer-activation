@@ -3,10 +3,37 @@
 class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGridTest
     extends Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_AbstractController
 {
+    protected function _overloadExit()
+    {
+        if (function_exists('set_exit_overload')) {
+            set_exit_overload(function () {
+                return false;
+            });
+            return true;
+        } elseif (function_exists('uopz_overload')) {
+            if (! ini_get('uopz.overloads')) {
+                $this->markTestSkipped('uopz extension installed but uopz.overloads ini setting is disabled.');
+            }
+            uopz_overload(ZEND_EXIT, function(){});
+            return true;
+        }
+        return false;
+    }
+    
+    protected function _restoreExit()
+    {
+        if (function_exists('unset_exit_overload')) {
+            unset_exit_overload();
+        } elseif (function_exists('uopz_overload')) {
+            uopz_overload(ZEND_EXIT, null);
+        }
+    }
+    
     /**
-     * Requires phpunit/test_helpers to be installed so exit() can be overloaded.
+     * Requires krakjoe/uopz or phpunit/test_helpers to be installed so exit() can be overloaded.
      *
-     * See https://github.com/sebastianbergmann/php-test-helpers
+     * See https://github.com/krakjoe/uopz
+     * and https://github.com/sebastianbergmann/php-test-helpers
      * and https://github.com/whatthejeff/php-test-helpers (a pull request so it compiles for PHP 5.4)
      *
      * @param string $route
@@ -15,27 +42,23 @@ class Netzarbeiter_CustomerActivation_Test_Controller_Adminhtml_CustomerGridTest
      */
     protected function getResponseFromActionWithExit($route)
     {
-        $responseBody = '';
-        if (function_exists('set_exit_overload')) {
-            try {
-                set_exit_overload(function () {
-                    return false;
-                });
-                ob_start();
-                $this->dispatch($route);
-            } catch (Zend_Controller_Response_Exception $e) {
-                if ($e->getMessage() !== 'Cannot send headers; headers already sent') {
-                    unset_exit_overload();
-                    throw $e;
-                }
-            }
-            unset_exit_overload();
-            $responseBody = ob_get_contents();
-            ob_end_clean();
-
-        } else {
-            $this->markTestSkipped("phpunit/test_helpers with set_exit_overload() not installed.");
+        if (! $this->_overloadExit()) {
+            $this->markTestSkipped("Unable to overload exit(): uopz or phpunit/test_helpers zend extensions not installed.");
         }
+
+        try {
+            ob_start();
+            $this->dispatch($route);
+            $this->_restoreExit();
+        } catch (Zend_Controller_Response_Exception $e) {
+            $this->_restoreExit();
+            if ($e->getMessage() !== 'Cannot send headers; headers already sent') {
+                ob_end_clean();
+                throw $e;
+            }
+        }
+        $responseBody = ob_get_contents();
+        ob_end_clean();
         return $responseBody;
     }
 
