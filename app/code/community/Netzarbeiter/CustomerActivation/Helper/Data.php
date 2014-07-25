@@ -127,7 +127,8 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
                             // We want 'store' to always be set to the customers store.
                             $this->getCustomerStoreId($customer)
                         ),
-                    )
+                    ),
+                    $storeId
                 );
         }
 
