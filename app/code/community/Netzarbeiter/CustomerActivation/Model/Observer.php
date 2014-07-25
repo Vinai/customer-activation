@@ -283,6 +283,10 @@ class Netzarbeiter_CustomerActivation_Model_Observer
         if ($massBlock) {
             /** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
             $helper = Mage::helper('customeractivation');
+            
+            if (! $helper->isModuleActive()) {
+                return;
+            }
 
             $noEmail = Netzarbeiter_CustomerActivation_Helper_Data::STATUS_ACTIVATE_WITHOUT_EMAIL;
             $withEmail = Netzarbeiter_CustomerActivation_Helper_Data::STATUS_ACTIVATE_WITH_EMAIL;
