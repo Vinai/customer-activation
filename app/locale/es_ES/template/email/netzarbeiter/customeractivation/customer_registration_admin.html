@@ -1,0 +1,33 @@
+<!--@subject Registro de nuevo cliente en {{var store.getName()}} @-->
+
+<style type="text/css">
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+</style>
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+								Registro de nuevo cliente en {{var store.getName()}}.<br />
+								Nombre: {{var customer.getName()}}<br />
+								Email: {{var customer.getEmail()}}
+							</p>
+
+							<p>
+								Para habilitar el cliente, por favor visite <a href="{{store url="adminhtml/customer"}}">Interfaz de Administrador</a> y vaya a
+								Clientes &gt; Gestionar Clientes &gt; {{var customer.getName()}} &gt; Información de cuenta y
+								activar la cuenta.
+							</p>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>
