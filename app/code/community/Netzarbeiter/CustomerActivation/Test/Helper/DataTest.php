@@ -163,32 +163,41 @@ class Netzarbeiter_CustomerActivation_Test_Helper_DataTest extends EcomDev_PHPUn
 
     /**
      * The admin email should not change with the customer store locale, so the text sample is the same always
+     * 
      * @return array
      */
     public function sendAdminNotificationEmailDataProvider()
     {
         return array(
-            //    Locale   A text Snipplet from the locales default template
-            array('en_US', 'New customer registration at'), // Standard locale
-            array('xx_XX', 'New customer registration at'), // A non-existent locale
-            array('de_DE', 'New customer registration at'), // German locale
+         // customer Locale  admin locale,  A text Snipplet from the locales default template
+            array('en_US', 'en_US', 'New customer registration at'), // Standard locale
+            array('xx_XX', 'en_US', 'New customer registration at'), // A non-existent locale
+            array('de_DE', 'en_US', 'New customer registration at'), // German locale still uses en_US for admin email
+            array('de_DE', 'de_DE', 'Neue Kundenregistrierung bei'), // German locale in admin
+            array('en_US', 'de_DE', 'Neue Kundenregistrierung bei'), // German locale in admin
         );
     }
 
     /**
-     * @param string $locale
+     * @param string $customerLocale
      * @param string $contentPart
      *
      * @test
      * @loadFixture emailConfig.yaml
      * @dataProvider sendAdminNotificationEmailDataProvider
      */
-    public function sendAdminNotificationEmail($locale, $contentPart)
+    public function sendAdminNotificationEmail($customerLocale, $adminLocale, $contentPart)
     {
         $mockCustomer = $this->_getMockCustomer();
 
-        $this->app()->getStore($mockCustomer->getStoreId())->setConfig('general/locale/code', $locale);
-
+        // Config fixtures
+        $this->app()->getStore($mockCustomer->getStoreId())
+            ->setConfig('general/locale/code', $customerLocale)
+            ->setConfig('customer/customeractivation/alert_admin', 1);
+        
+        $this->app()->getStore('admin')
+            ->setConfig('general/locale/code', $adminLocale);
+        
         $this->_prepareEmailTemplateInstance();
 
         Mage::helper('customeractivation')->sendAdminNotificationEmail($mockCustomer);
