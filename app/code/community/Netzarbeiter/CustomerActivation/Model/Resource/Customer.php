@@ -40,6 +40,7 @@ class Netzarbeiter_CustomerActivation_Model_Resource_Customer
     public function massSetActivationStatus(array $customerIds, $value)
     {
         $customerIds = $this->_getValidCustomerIds($customerIds);
+        $changeIds = array();
         if ($customerIds) {
             $attribute = $this->getAttribute('customer_activated');
             $table = $attribute->getBackend()->getTable();
