@@ -24,7 +24,7 @@ $installer->startSetup();
 
 $resource = Mage::getResourceModel('customer/customer');
 
-// Set all existing customers to true
+// Set activation status for existing customers to true
 $select = $installer->getConnection()->select()
     ->from($resource->getEntityTable(), $resource->getEntityIdField());
 $customerIds = $installer->getConnection()->fetchCol($select);
