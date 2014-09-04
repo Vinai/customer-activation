@@ -379,7 +379,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      *
      * @param Mage_Adminhtml_Block_Customer_Grid $block
      */
-    protected function _addActivationStatusColumn(Mage_Adminhtml_Block_Customer_Grid $block)
+    protected function _addActivationStatusColumn(Mage_Adminhtml_Block_Widget_Grid $block)
     {
         /** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
         $helper = Mage::helper('customeractivation');
