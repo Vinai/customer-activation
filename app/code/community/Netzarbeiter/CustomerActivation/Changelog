@@ -1,5 +1,9 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.5.3 2014-09-13
+- Activate all existing customers by default during installation
+- Refactoring and improved tests to help keep module maintainable
+
 0.5.2 2014-01-09
 - Compatibility with older Magento versions without automatic VAT ID validation (I think 1.5 and older)
 
