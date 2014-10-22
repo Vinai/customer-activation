@@ -6,9 +6,9 @@ Facts
 -----
 - version: check the [config.xml](https://github.com/Vinai/customer-activation/blob/master/app/code/community/Netzarbeiter/CustomerActivation/etc/config.xml)
 - extension key: Netzarbeiter_CustomerActivation
-- [extension on Magento Connect](http://www.magentocommerce.com/magento-connect/customer-activation.html)
-- Magento Connect 1.0 extension key: magento-community/Netzarbeiter_CustomerActivation
-- Magento Connect 2.0 extension key: http://connect20.magentocommerce.com/community/Netzarbeiter_CustomerActivation
+- extension on Magento Connect: -
+- Magento Connect 1.0 extension key: -
+- Magento Connect 2.0 extension key: -
 - [extension on GitHub](https://github.com/Vinai/customer-activation)
 - [direct download link](https://github.com/Vinai/customer-activation/zipball/master)
 
@@ -29,10 +29,7 @@ Netzarbeiter_LoginCatalog only shows products to customers that are logged in.
 There also is the Extension [Netzarbeiter_GroupsCatalog2][] which may suit your needs better,
 you have to evaluate yourself what is the best solution for your case.
 
-This module can also be installed from [Magento Connect][mc].
-
-[mc]: http://www.magentocommerce.com/magento-connect/customer-activation.html "The Customer Activation Extension on Magento Connect"
-[Netzarbeiter_LoginCatalog]: http://www.magentocommerce.com/magento-connect/login-only-catalog.html "The Login only Catalog Extension on Magento Connect"
+[Netzarbeiter_LoginCatalog]: https://github.com/Vinai/loginonlycatalog/ "The Login only Catalog Extension on github"
 [Netzarbeiter_GroupsCatalog2]: https://github.com/Vinai/groupscatalog2 "GroupsCatalog 2"
 
 Compatibility
