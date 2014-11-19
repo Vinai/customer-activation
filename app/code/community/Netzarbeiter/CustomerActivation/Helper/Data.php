@@ -29,6 +29,7 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
     const XML_PATH_DEFAULT_STATUS_GROUPS = 'customer/customeractivation/require_activation_groups';
 
     const XML_PATH_MODULE_DISABLED = 'customer/customeractivation/disable_ext';
+    const XML_PATH_ALWAYS_ACTIVE_ADMIN = 'customer/customeractivation/always_active_in_admin';
 
     const STATUS_ACTIVATE_WITHOUT_EMAIL = 1;
     const STATUS_ACTIVATE_WITH_EMAIL = 2;
@@ -40,6 +41,14 @@ class Netzarbeiter_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstr
     {
         $value = Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, $store);
         return ! $value;
+    }
+    
+    public function isModuleActiveInAdmin()
+    {
+        if (Mage::getStoreConfig(self::XML_PATH_ALWAYS_ACTIVE_ADMIN)) {
+            return true;
+        }
+        return $this->isModuleActive(0);
     }
     
     /**

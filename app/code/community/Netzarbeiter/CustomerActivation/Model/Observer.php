@@ -284,7 +284,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
             /** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
             $helper = Mage::helper('customeractivation');
             
-            if (! $helper->isModuleActive()) {
+            if (! $helper->isModuleActiveInAdmin()) {
                 return;
             }
 
@@ -322,11 +322,10 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      */
     public function eavCollectionAbstractLoadBefore(Varien_Event_Observer $observer)
     {
-        if (! Mage::helper('customeractivation')->isModuleActive()) {
+        if (! Mage::helper('customeractivation')->isModuleActiveInAdmin()) {
             return;
         }
 
-        // Cheap check to reduce overhead on product and category collections
         if (Mage::app()->getRequest()->getControllerName() !== 'customer') {
             return;
         }
@@ -350,11 +349,10 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      */
     public function coreBlockAbstractPrepareLayoutAfter(Varien_Event_Observer $observer)
     {
-        if (! Mage::helper('customeractivation')->isModuleActive()) {
+        if (! Mage::helper('customeractivation')->isModuleActiveInAdmin()) {
             return;
         }
 
-        // Only add column to grids rendered by the adminhtml customer controller
         if (Mage::app()->getRequest()->getControllerName() !== 'customer') {
             return;
         }
@@ -377,7 +375,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      * This is used from different events when displaying the block as well as
      * during exporting the grid to CSV or XML.
      *
-     * @param Mage_Adminhtml_Block_Customer_Grid $block
+     * @param Mage_Adminhtml_Block_Widget_Grid $block
      */
     protected function _addActivationStatusColumn(Mage_Adminhtml_Block_Widget_Grid $block)
     {
