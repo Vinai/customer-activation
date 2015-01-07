@@ -1,0 +1,41 @@
+<!--@subject Your account has been activated, {{var customer.getName()}} @-->
+
+<style type="text/css">
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+</style>
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=""}}"><img src="{{skin url="images/logo_email.gif" _area='frontend'}}" alt="Magento"  style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+								<strong>Witaj {{var customer.name}}</strong>,<br/>
+								twoje konto zostało aktywowane.<br/>
+                                                                By się zalogować na naszej stronie kliknij <a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">Login</a> lub
+								<a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">Moje konto</a> u góry kazdej strony, a nastepnie wszpisz swój email i haslo.
+                            </p>
+
+                            <p>Jesli masz jakiekolwiek pytanie odnośnie swojego konta lub inne, prosimy o kontakt mailowy <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> lub telefoniczny {{config path='general/store_information/phone'}}.</p>
+                            <p>Dziękujemy!</p>
+
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>
