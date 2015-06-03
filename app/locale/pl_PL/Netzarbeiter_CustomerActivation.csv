@@ -1,26 +1,26 @@
-This account is not activated.,To konto nie jest aktywowane.
-Is activated,Jest Aktywowane
-Deactivated,Deaktywowane
-Activated,Aktywowane
-Customer Activation,Aktywacja Klienta
-Disable CustomerActivation,Nieaktywne Rozszerzenie
-Please wait for your account to be activated,Prosze poczekaj az twoje konto zostanie aktywowane
-Customer Registration Admin Notification,Notatka Administracyjna o Rejestracji Klienta
-Customer Activation Notification,Notatka o Aktywacji Klienta
-Notify Admin on Customer Registration,Poinformuj Administratora o Rejestracji Klienta
-Admin Email Address,Adres Email Administratora
-Admin Notification Email Template,Szblon Emaila z Notatka do Administratora
-Notify Customer of Account Activation,Poinformuj Administratora o Aktywacji Klienta
-Customer Notification Email Template,Szblon Emaila z Notatka do Klienta
-Always enable in admin interface,Zawsze aktywny w interfejsie administratora
-If you want to activate accounts created via the admin interface,Jesli chesz aktywowac konta utorzone przez administratora
-Activate new Customer Accounts by Default,Domyslnie aktywuj nowe konta
-Always send Admin Notification,Zawsze Wysylaj notatki administracyjne
-Send the Admin notification email even if new accounts are activated by default,Wyslij notatke administracyjna gdy konto zostalo domyslnie aktywowane
-Customer Activated,Klient Aktywowany
-Yes,Tak
-Yes (With Notification),Tak (Z Notatka)
-Yes (No Notification),Tak (Bez Notatki)
-No,Nie
-Please select item(s),Prosze wybrac przedmiot(y)
-Total of %d record(s) were successfully saved,%d wpis�w zostalo zapisane
+"This account is not activated.","To konto nie jest aktywne."
+"Is activated","Jest aktywne"
+"Deactivated","Deaktywowane"
+"Activated","Aktywowane"
+"Customer Activation","Aktywacja klienta"
+"Disable CustomerActivation","Dezaktywuj rozszerzenie"
+"Please wait for your account to be activated","Poczekaj aż Twoje konto zostanie aktywowane przez administratora"
+"Customer Registration Admin Notification","Informacja admistracyjna o rejestracji klienta"
+"Customer Activation Notification","Informacja o aktywacji klienta"
+"Notify Admin on Customer Registration","Poinformuj administratora o rejestracji klienta"
+"Admin Email Address","Adres email administratora"
+"Admin Notification Email Template","Szablon emaila z informacją dla administratora"
+"Notify Customer of Account Activation","Poinformuj administratora o aktywacji klienta"
+"Customer Notification Email Template","Szablon email z informacją dla klienta"
+"Always enable in admin interface","Zawsze aktywny w interfejsie administratora"
+"If you want to activate accounts created via the admin interface","Jeśli chcesz aktywować konta utworzone przez administratora"
+"Activate new Customer Accounts by Default","Domyslnie aktywuj nowe konta"
+"Always send Admin Notification","Zawsze wysyłaj informacje administracyjne"s
+"Send the Admin notification email even if new accounts are activated by default","Wyslij informację administracyjną, gdy konto zostało domyślnie aktywowane"
+"Customer Activated","Klient aktywowany"
+"Yes","Tak"
+"Yes (With Notification)","Tak (z informacją)"
+"Yes (No Notification)","Tak (bez informacji)"
+"No","Nie"
+"Please select item(s),"Prosze wybrać opcję(e)"
+"Total of %d record(s) were successfully saved","%d wpisów zostało zapisane"
