@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -16,7 +17,6 @@
  * copyright  Copyright (c) 2014 Vinai Kopp http://netzarbeiter.com/
  * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Netzarbeiter_CustomerActivation_Model_Observer
 {
     const XML_PATH_ALWAYS_NOTIFY_ADMIN = 'customer/customeractivation/always_send_admin_email';
@@ -31,7 +31,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
     public function customerLogin($observer)
     {
         $helper = Mage::helper('customeractivation');
-        if (! $helper->isModuleActive()) {
+        if (!$helper->isModuleActive()) {
             return;
         }
 
@@ -78,19 +78,18 @@ class Netzarbeiter_CustomerActivation_Model_Observer
         $helper = Mage::helper('customeractivation');
         $storeId = $helper->getCustomerStoreId($customer);
 
-        if (! $helper->isModuleActive($storeId)) {
+        if (!$helper->isModuleActive($storeId)) {
             return;
         }
 
         if (!$customer->getId()) {
             $customer->setCustomerActivationNewAccount(true);
-            if (! (Mage::app()->getStore()->isAdmin() && $this->_checkControllerAction('customer', 'save'))) {
-                // Do not set the default status on the admin customer edit save action
+            if ($this->shouldSetDefaultActivationStatus()) {
                 $groupId = $customer->getGroupId();
                 $defaultStatus = $helper->getDefaultActivationStatus($groupId, $storeId);
                 $customer->setCustomerActivated($defaultStatus);
-                
-                if (! $defaultStatus) {
+
+                if (!$defaultStatus) {
                     // Suppress the "enter your billing address for VAT validation" message.
                     // This setting will not be saved, its just for this request.
                     $helper = Mage::helper('customer/address');
@@ -121,7 +120,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
         $helper = Mage::helper('customeractivation');
         $storeId = $helper->getCustomerStoreId($customer);
 
-        if (! $helper->isModuleActive($storeId)) {
+        if (!$helper->isModuleActive($storeId)) {
             return;
         }
 
@@ -178,7 +177,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
     protected function _abortCheckoutRegistration(Mage_Sales_Model_Quote $quote)
     {
         $helper = Mage::helper('customeractivation');
-        if (! $helper->isModuleActive($quote->getStoreId())) {
+        if (!$helper->isModuleActive($quote->getStoreId())) {
             return;
         }
 
@@ -209,10 +208,12 @@ class Netzarbeiter_CustomerActivation_Model_Observer
                     // Assume one page checkout
                     $result = array('redirect' => $targetUrl);
                     $response->setBody(Mage::helper('core')->jsonEncode($result));
-                } else if ($response->canSendHeaders(true)) {
-                    // Assume multishipping checkout
-                    $response->clearHeader('location')
+                } else {
+                    if ($response->canSendHeaders(true)) {
+                        // Assume multishipping checkout
+                        $response->clearHeader('location')
                             ->setRedirect($targetUrl);
+                    }
                 }
                 $response->sendResponse();
                 /* ugly, but we need to stop the further order processing */
@@ -243,8 +244,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer
     {
         $req = Mage::app()->getRequest();
         if (strtolower($req->getModuleName()) == $module
-                && strtolower($req->getControllerName()) == $controller
-                && strtolower($req->getActionName()) == $action
+            && strtolower($req->getControllerName()) == $controller
+            && strtolower($req->getActionName()) == $action
         ) {
             return true;
         }
@@ -283,8 +284,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer
         if ($massBlock) {
             /** @var $helper Netzarbeiter_CustomerActivation_Helper_Data */
             $helper = Mage::helper('customeractivation');
-            
-            if (! $helper->isModuleActiveInAdmin()) {
+
+            if (!$helper->isModuleActiveInAdmin()) {
                 return;
             }
 
@@ -322,7 +323,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      */
     public function eavCollectionAbstractLoadBefore(Varien_Event_Observer $observer)
     {
-        if (! Mage::helper('customeractivation')->isModuleActiveInAdmin()) {
+        if (!Mage::helper('customeractivation')->isModuleActiveInAdmin()) {
             return;
         }
 
@@ -349,7 +350,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
      */
     public function coreBlockAbstractPrepareLayoutAfter(Varien_Event_Observer $observer)
     {
-        if (! Mage::helper('customeractivation')->isModuleActiveInAdmin()) {
+        if (!Mage::helper('customeractivation')->isModuleActiveInAdmin()) {
             return;
         }
 
@@ -363,8 +364,8 @@ class Netzarbeiter_CustomerActivation_Model_Observer
             //$action = Mage::app()->getRequest()->getActionName();
             //if (in_array($action, array('grid', 'index', 'exportCsv', 'exportXml'))) {
 
-                $this->_addActivationStatusColumn($block);
-            
+            $this->_addActivationStatusColumn($block);
+
             //}
         }
     }
@@ -406,17 +407,17 @@ class Netzarbeiter_CustomerActivation_Model_Observer
     }
 
     /**
-     * Reportedly on Magento 1.6 customers are logged in automatically 
+     * Reportedly on Magento 1.6 customers are logged in automatically
      * by the lost password functionality (must be some customization actually).
-     * 
+     *
      * This observer method removes the customer id from the customer/session,
      * in effect causing a logout just in case.
-     * 
+     *
      * @param Varien_Event_Observer $observer
      */
     public function controllerActionPostdispatchCustomerAccountResetPasswordPost(Varien_Event_Observer $observer)
     {
-        if (! Mage::helper('customeractivation')->isModuleActive()) {
+        if (!Mage::helper('customeractivation')->isModuleActive()) {
             return;
         }
         if (version_compare(Mage::getVersion(), '1.7', '<')) {
@@ -426,6 +427,18 @@ class Netzarbeiter_CustomerActivation_Model_Observer
                 $session->setCustomerId(null)->setId(null);
             }
         }
-            
+
+    }
+
+    private function shouldSetDefaultActivationStatus()
+    {
+        return !$this->isAdminEditCustomerSaveAction() && !$this->_isApiRequest();
+    }
+
+    private function isAdminEditCustomerSaveAction()
+    {
+        return
+            Mage::app()->getStore()->isAdmin() &&
+            $this->_checkControllerAction('customer', 'save');
     }
 }
