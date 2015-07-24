@@ -29,7 +29,8 @@ $select = $installer->getConnection()->select()
     ->from($resource->getEntityTable(), $resource->getEntityIdField());
 $customerIds = $installer->getConnection()->fetchCol($select);
 
-$updatedCustomerIds = Mage::getResourceModel('customeractivation/customer')
-    ->massSetActivationStatus($customerIds, 1);
+foreach (array_chunk($customerIds,1000) as $updateIds) {
+    $updatedCustomerIds = Mage::getResourceModel('customeractivation/customer')->massSetActivationStatus($updateIds, 1);
+}
 
 $installer->endSetup();

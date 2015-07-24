@@ -1,0 +1,40 @@
+<!--@subject Din konto har blitt aktivert, {{var customer.getName()}} @-->
+
+<style type="text/css">
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+</style>
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=""}}"><img src="{{skin url="images/logo_email.gif" _area='frontend'}}" alt="Magento"  style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>Hei {{var customer.name}}</strong>,<br/>
+                                din konto har blitt aktivert.<br/>
+                            </p>
+                            <p>For å logge inn på siden kan du trykke <a href="{{store url="customer/account/"}}">logg inn</a> eller <a href="{{store url="customer/account/"}}">Min konto</a> i toppmenyen og deretter taste inn din e-postadresse og passord.</p>
+                            <p>
+                                Hvis du har noen spørsmål kan du ta kontakt på
+                                <a href="mailto:{{var store_email}}">{{var store_email}}</a>
+                                {{depend store_phone}} eller på telefon <a href="tel:{{var phone}}">{{var store_phone}}</a>{{/depend}}.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>
