@@ -297,7 +297,7 @@ class Netzarbeiter_CustomerActivation_Model_Observer
                 'customer_activated',
                 array(
                     'label' => $helper->__('Customer Activated'),
-                    'url' => Mage::getUrl('customeractivation/admin/massActivation'),
+                    'url' => Mage::getUrl('adminhtml/customerActivation/massActivation'),
                     'additional' => array(
                         'status' => array(
                             'name' => 'customer_activated',

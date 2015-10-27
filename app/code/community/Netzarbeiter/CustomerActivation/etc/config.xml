@@ -89,13 +89,13 @@
     </global>
     <admin>
         <routers>
-            <customeractivation>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Netzarbeiter_CustomerActivation</module>
-                    <frontName>customeractivation</frontName>
+                    <modules>
+                        <netzarbeiter_customeractivation>Netzarbeiter_CustomerActivation</netzarbeiter_customeractivation>
+                    </modules>
                 </args>
-            </customeractivation>
+            </adminhtml>
         </routers>
     </admin>
     <frontend>
