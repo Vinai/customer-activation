@@ -84,8 +84,8 @@ Any contributions are highly appreciated. The best way to contribute code is to 
 
 Developer
 ---------
-Vinai Kopp
-[http://www.netzarbeiter.com](http://www.netzarbeiter.com)
+Vinai Kopp  
+[http://www.netzarbeiter.com](http://www.netzarbeiter.com)  
 [@VinaiKopp](https://twitter.com/VinaiKopp)
 
 Licence
@@ -94,4 +94,4 @@ Licence
 
 Copyright
 ---------
-(c) 2014 Vinai Kopp
+(c) 2015 Vinai Kopp
