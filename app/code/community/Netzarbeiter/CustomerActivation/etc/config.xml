@@ -21,7 +21,7 @@
 <config>
     <modules>
         <Netzarbeiter_CustomerActivation>
-            <version>0.5.5</version>
+            <version>0.5.6</version>
         </Netzarbeiter_CustomerActivation>
     </modules>
     <global>
@@ -92,7 +92,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <netzarbeiter_customeractivation>Netzarbeiter_CustomerActivation</netzarbeiter_customeractivation>
+                        <netzarbeiter_customeractivation after="Mage_Adminhtml">Netzarbeiter_CustomerActivation</netzarbeiter_customeractivation>
                     </modules>
                 </args>
             </adminhtml>
