@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.5.6 2015-12-02
+- Bugfix: add missing attribute to admin route declaration (thanks to https://github.com/scarrott)
+
 0.5.5 2015-11-27
 - Make mass action admin controller route compatible with SUPEE-6788 patch 
 
