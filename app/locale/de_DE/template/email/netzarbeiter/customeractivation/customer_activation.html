@@ -12,7 +12,25 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                 <table cellspacing="0" cellpadding="0" border="0" width="650">
                     <tr>
                         <td valign="top">
-                            <a href="{{store url=""}}"><img src="{{skin url="images/logo_email.gif" _area='frontend'}}" alt="Magento"  style="margin-bottom:10px;" border="0"/></a></td>
+                            <a href="{{store url=""}}">
+                            <img
+                            {{if logo_width}}
+                            width="{{var logo_width}}"
+                            {{else}}
+                            width="165"
+                            {{/if}}
+
+                            {{if logo_height}}
+                            height="{{var logo_height}}"
+                            {{else}}
+                            height="48"
+                            {{/if}}
+
+                            src="{{if logo_url}}{{var logo_url}}{{else}}{{skin url="images/logo_email.gif" _area='frontend'}}{{/if}}"
+                            alt="{{var logo_alt}}"
+                            border="0"/>
+                            </a>
+                        </td>
                     </tr>
                 </table>
 
@@ -29,8 +47,6 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                             <p>Sollten Sie Fragen zu Ihrem Kundenkonto oder andere Anfragen haben, senden Sie uns eine E-Mail an <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> oder rufen Sie uns von Montag bis Freitag von 8.00 bis 17.00 Uhr unter {{config path='general/store_information/phone'}} an.</p>
 
 							<p>Vielen Dank!</p>
-
-
                         </td>
                     </tr>
                 </table>

@@ -12,7 +12,25 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                 <table cellspacing="0" cellpadding="0" border="0" width="650">
                     <tr>
                         <td valign="top">
-                            <a href="{{store url=""}}"><img src="{{skin url="images/logo_email.gif" _area='frontend'}}" alt="Magento"  style="margin-bottom:10px;" border="0"/></a></td>
+                            <a href="{{store url=""}}">
+                            <img
+                            {{if logo_width}}
+                            width="{{var logo_width}}"
+                            {{else}}
+                            width="165"
+                            {{/if}}
+
+                            {{if logo_height}}
+                            height="{{var logo_height}}"
+                            {{else}}
+                            height="48"
+                            {{/if}}
+
+                            src="{{if logo_url}}{{var logo_url}}{{else}}{{skin url="images/logo_email.gif" _area='frontend'}}{{/if}}"
+                            alt="{{var logo_alt}}"
+                            border="0"/>
+                            </a>
+                        </td>
                     </tr>
                 </table>
 
@@ -29,7 +47,6 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
 
                             <p>Per qualsiasi informazione o chiarimento non esitare a scriverci <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> o chiamaci allo {{config path='general/store_information/phone'}}.</p>
                             <p>Grazie, a presto!</p>
-
 
                         </td>
                     </tr>
