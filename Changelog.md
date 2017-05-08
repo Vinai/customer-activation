@@ -1,5 +1,8 @@
 Changelog for Netzarbeiter_CustomerActivation
 
+0.5.7 2017-05-08
+- Bugfix: Resolve an issue in which customer addresses were returning false (thanks to https://github.com/markvds)
+
 0.5.6 2015-12-02
 - Bugfix: add missing attribute to admin route declaration (thanks to https://github.com/scarrott)
 
