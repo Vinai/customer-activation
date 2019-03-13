@@ -1,3 +1,8 @@
+# This Magento 1 extension is orphaned, unsupported and no longer maintained.
+
+If you use it, you are effectively adopting the code for your own project.
+
+
 Customer Activation
 ============================
 Make it impossible for a customer to log in until the account has been activated by the admin.
